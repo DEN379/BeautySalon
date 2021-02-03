@@ -5,8 +5,20 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private int role;
-    private int id;
+    private Role role;
+    private Long id;
+
+    public User() {
+    }
+
+    public User(String firstName, String lastName, String email, String password, Role role, Long id) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -40,19 +52,19 @@ public class User {
         this.password = password;
     }
 
-    public int getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(int role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 }
