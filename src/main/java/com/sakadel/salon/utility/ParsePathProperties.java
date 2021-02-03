@@ -6,18 +6,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ParseProperties {
-    private static final Logger LOGGER = Logger.getLogger(ParseProperties.class);
+public class ParsePathProperties {
+    private static final Logger LOGGER = Logger.getLogger(ParsePathProperties.class);
 
-    private static ParseProperties instance = null;
+    private static ParsePathProperties instance = null;
 
     private Properties properties;
+    private static String propertiesFileName = "path.properties";
 
-    private ParseProperties() {
+    private ParsePathProperties() {
         LOGGER.info("Initializing MappingProperties class");
 
         properties = new Properties();
-        String propertiesFileName = "mapping.properties";
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFileName);
 
         try {
@@ -32,11 +32,17 @@ public class ParseProperties {
         catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
+        try {
+            assert inputStream != null;
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static synchronized ParseProperties getInstance() {
+    public static synchronized ParsePathProperties getInstance() {
         if(instance == null) {
-            instance = new ParseProperties();
+            instance = new ParsePathProperties();
         }
 
         return instance;
