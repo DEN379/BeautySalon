@@ -49,3 +49,4 @@ buildNumber.properties
 
 ### Gradle ###
 build/
+.idea/workspace.xml
