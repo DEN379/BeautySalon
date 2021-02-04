@@ -1,6 +1,5 @@
 package com.sakadel.salon.commands;
 
-import com.sakadel.salon.utility.ParseProperties;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +19,13 @@ public class CommandManager {
         getCommands = new HashMap<>();
         postCommands = new HashMap<>();
 
+        getCommands.put("/", new MainPageCommand());
+        getCommands.put("/login", new LoginPageCommand());
+        //getCommands.put("/logout", new LogoutCommand());
+        getCommands.put("/register", new RegisterPageCommand());
+
+        postCommands.put("/login", new LoginCommand());
+        postCommands.put("/register", new RegisterCommand());
 
 //        ParseProperties properties = ParseProperties.getInstance();
 //        errorPage = properties.getProperty("errorPage");
