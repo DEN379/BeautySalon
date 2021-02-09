@@ -8,7 +8,9 @@ import com.sakadel.salon.utility.ParseSqlProperties;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ServiceDAO {
     private static final Logger LOGGER = Logger.getLogger(ServiceDAO.class);
@@ -18,6 +20,7 @@ public class ServiceDAO {
 
     private static String createQuery;
     private static String findByIdQuery;
+    private static String findAllQuery;
 
     private  ServiceDAO() {
         try {
@@ -31,6 +34,7 @@ public class ServiceDAO {
         ParseSqlProperties properties = ParseSqlProperties.getInstance();
         createQuery = properties.getProperty("createService");
         findByIdQuery = properties.getProperty("findServiceById");
+        findAllQuery = properties.getProperty("findAllServices");
     }
 
     public static ServiceDAO getInstance(){
@@ -55,7 +59,7 @@ public class ServiceDAO {
                     if(resultSet.next()) {
                         service.setId(resultSet.getLong(1));
                     } else {
-                        LOGGER.error("Failed to create user, no ID found.");
+                        LOGGER.error("Failed to create service, no ID found.");
                     }
                 }
             }
@@ -64,6 +68,30 @@ public class ServiceDAO {
             LOGGER.error("Error to add to data base" + Arrays.toString(e.getStackTrace()));
         }
         return service;
+    }
+
+    public List<Service> findAll() {
+        LOGGER.info("Getting all services");
+        List<Service> listService = new ArrayList<>();
+
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(findAllQuery)){
+            ResultSet result = statement.executeQuery();
+
+            while(result.next()) {
+                Service service = new Service();
+                service.setId(result.getLong("id"));
+                service.setName(result.getString("name"));
+
+                listService.add(service);
+                System.out.println(service.getName());
+                LOGGER.info(service.getName());
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return listService;
     }
 
     public Service findService(Long id) {

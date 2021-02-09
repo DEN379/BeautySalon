@@ -2,7 +2,10 @@ package com.sakadel.salon.service;
 
 import com.sakadel.salon.dao.MasterDAO;
 import com.sakadel.salon.entity.Master;
+import com.sakadel.salon.entity.Service;
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 public class MasterService {
     private static final Logger LOGGER = Logger.getLogger(MasterService.class);
@@ -25,5 +28,11 @@ public class MasterService {
             return null;
         }
         return masterDAO.findMasterById(id);
+    }
+
+    public List<Master> findAll() {
+        LOGGER.info("Getting all masters");
+
+        return masterDAO.findAll();
     }
 }

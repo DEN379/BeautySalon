@@ -4,6 +4,8 @@ import com.sakadel.salon.dao.ServiceDAO;
 import com.sakadel.salon.entity.Service;
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 public class ServiceService {
 
     private static final Logger LOGGER = Logger.getLogger(ServiceService.class);
@@ -27,6 +29,11 @@ public class ServiceService {
             return null;
         }
         return serviceDAO.findService(id);
+    }
+    public List<Service> findAll() {
+        LOGGER.info("Getting all services");
+
+        return serviceDAO.findAll();
     }
 
 }
