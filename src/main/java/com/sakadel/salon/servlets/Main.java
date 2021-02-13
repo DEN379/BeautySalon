@@ -38,6 +38,7 @@ public class Main extends HttpServlet {
 
         ServletCommand command = commandManager.getPostCommand(request);
         String page = command.execute(request, response);
-        request.getRequestDispatcher(page).forward(request, response);
+        //request.getRequestDispatcher(page).forward(request, response);
+        response.sendRedirect("/salon");
     }
 }
