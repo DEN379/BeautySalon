@@ -30,9 +30,9 @@ public class MasterService {
         return masterDAO.findMasterById(id);
     }
 
-    public List<Master> findAll() {
+    public List<Master> findAllWithName() {
         LOGGER.info("Getting all masters");
 
-        return masterDAO.findAll();
+        return masterDAO.findAllWithName();
     }
 }

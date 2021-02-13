@@ -65,6 +65,23 @@ public class ServiceMasterDAO {
         return masterService;
     }
 
+//    public ServiceMaster findServiceMasterBy(Long id) {
+//        LOGGER.info("Getting service-master by id " + id);
+//        ServiceMaster serviceMaster = null;
+//        //try(Connection connection = connectionPool.getConnection()) {
+//        try(PreparedStatement statement = connection.prepareStatement(findByIdQuery)){
+//            statement.setLong(1, id);
+//
+//            ResultSet result = statement.executeQuery();
+//
+//            serviceMaster = getService(result);
+//        } catch (SQLException e) {
+//            LOGGER.error(e.getMessage());
+//        }
+//
+//        return serviceMaster;
+//    }
+
     public ServiceMaster findServiceMaster(Long id) {
         LOGGER.info("Getting service-master by id " + id);
         ServiceMaster serviceMaster = null;

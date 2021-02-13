@@ -12,18 +12,22 @@
     <form class="pure-form" accept-charset="UTF-8" role="form" method="post" action="${pageContext.request.contextPath}/register">
         <fieldset>
             <div class="form-group">
-                <input class="form-control" name="fname" type="text" required>
+                <label for="fname">First name</label>
+                <input class="form-control" name="fname" id="fname" type="text" required>
             </div>
 
             <div class="form-group">
-                <input class="form-control" name="lname" type="text" required>
+                <label for="lname">Last name</label>
+                <input class="form-control" name="lname" id="lname" type="text" required>
             </div>
 
             <div class="form-group">
-                <input class="form-control" name="email" type="email" required>
+                <label for="email">email</label>
+                <input class="form-control" name="email" id="email" type="email" required>
             </div>
 
             <div class="form-group">
+                <label for="password">Password</label>
                 <input class="form-control" name="password"
                        id="password" type="password" required>
             </div>

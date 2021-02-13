@@ -9,6 +9,16 @@ public class Record {
     private Long status_id;
     private Time time;
 
+    private User user;
+    private User userMaster;
+    private Master master;
+    private Service service;
+    private Status status;
+    private ServiceMaster serviceMaster;
+
+    public Record(){
+
+    }
     public Record(Long id, Long user_id, Long master_has_service_id, Long status_id, Time time) {
         this.id = id;
         this.user_id = user_id;
@@ -55,5 +65,53 @@ public class Record {
 
     public void setTime(Time time) {
         this.time = time;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUserMaster() {
+        return userMaster;
+    }
+
+    public void setUserMaster(User userMaster) {
+        this.userMaster = userMaster;
+    }
+
+    public Master getMaster() {
+        return master;
+    }
+
+    public void setMaster(Master master) {
+        this.master = master;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public ServiceMaster getServiceMaster() {
+        return serviceMaster;
+    }
+
+    public void setServiceMaster(ServiceMaster serviceMaster) {
+        this.serviceMaster = serviceMaster;
     }
 }

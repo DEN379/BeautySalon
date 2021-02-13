@@ -55,7 +55,7 @@ public class UserDAO {
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getPassword());
-            statement.setInt(5, 3);
+            statement.setInt(5, Role.CLIENT.ordinal()+1);
             int resQuery = statement.executeUpdate();
             if(resQuery == 0){
                 LOGGER.error("Creation user failed");

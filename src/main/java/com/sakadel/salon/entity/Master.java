@@ -1,16 +1,15 @@
 package com.sakadel.salon.entity;
 
-import java.math.BigDecimal;
 
 public class Master {
     private Long id;
     private Long user_id;
     private User user;
-    private BigDecimal mark;
+    private float mark;
     public Master(){
 
     }
-    public Master(Long id, User user, BigDecimal mark) {
+    public Master(Long id, User user, float mark) {
         this.id = id;
         this.user = user;
         this.mark = mark;
@@ -32,11 +31,11 @@ public class Master {
         this.user = user;
     }
 
-    public BigDecimal getMark() {
+    public float getMark() {
         return mark;
     }
 
-    public void setMark(BigDecimal mark) {
+    public void setMark(float mark) {
         this.mark = mark;
     }
 

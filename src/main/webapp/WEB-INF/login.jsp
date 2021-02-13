@@ -19,7 +19,7 @@
                 <input class="form-control" name="password" type="password" required>
             </div>
 
-            <input class="btn btn-lg btn-success btn-block" type="submit" />">
+            <input class="btn btn-lg btn-success btn-block" type="submit" />
         </fieldset>
     </form>
 </div>

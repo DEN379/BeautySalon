@@ -1,5 +1,9 @@
 package com.sakadel.salon.commands;
 
+import com.sakadel.salon.commands.admin.CancelStatusCommand;
+import com.sakadel.salon.commands.admin.ItemPageCommand;
+import com.sakadel.salon.commands.admin.RecordsPageCommand;
+import com.sakadel.salon.commands.admin.AcceptedStatusCommand;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +25,19 @@ public class CommandManager {
 
         getCommands.put("/", new MainPageCommand());
         getCommands.put("/login", new LoginPageCommand());
-        //getCommands.put("/logout", new LogoutCommand());
+        postCommands.put("/logout", new LogoutCommand());
         getCommands.put("/register", new RegisterPageCommand());
+        getCommands.put("/order", new OrderPageCommand());
+
+        getCommands.put("/records", new RecordsPageCommand());
+        getCommands.put("/records/edit", new ItemPageCommand());
 
         postCommands.put("/login", new LoginCommand());
         postCommands.put("/register", new RegisterCommand());
+        postCommands.put("/order", new OrderCommand());
+
+        postCommands.put("/records/cancel", new CancelStatusCommand());
+        postCommands.put("/records/accept", new AcceptedStatusCommand());
 
 //        ParseProperties properties = ParseProperties.getInstance();
 //        errorPage = properties.getProperty("errorPage");

@@ -50,6 +50,7 @@ public class ServiceDAO {
 
         try (PreparedStatement statement = connection.prepareStatement(createQuery, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, service.getName());
+            statement.setString(2, service.getDescription());
             int resQuery = statement.executeUpdate();
             if(resQuery == 0){
                 LOGGER.error("Creation service failed");
@@ -82,6 +83,7 @@ public class ServiceDAO {
                 Service service = new Service();
                 service.setId(result.getLong("id"));
                 service.setName(result.getString("name"));
+                service.setName(result.getString("description"));
 
                 listService.add(service);
                 System.out.println(service.getName());
@@ -118,7 +120,9 @@ public class ServiceDAO {
         try {
             if(resultSet.next()) {
                 service = new Service(
-                        resultSet.getLong("id"), resultSet.getString("name"));
+                        resultSet.getLong("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("description"));
             }
         } catch (SQLException e) {
             LOGGER.info(e.getMessage());

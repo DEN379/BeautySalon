@@ -9,9 +9,7 @@ import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class MasterDAO {
     private static final Logger LOGGER = Logger.getLogger(MasterDAO.class);
@@ -35,7 +33,7 @@ public class MasterDAO {
         ParseSqlProperties properties = ParseSqlProperties.getInstance();
         updateQuery = properties.getProperty("createMaster");
         findByIdQuery = properties.getProperty("findMasterById");
-        findAllQuery = properties.getProperty("findAllMasters");
+        findAllQuery = properties.getProperty("findAllMastersWithName");
     }
 
     public static MasterDAO getInstance(){
@@ -59,7 +57,7 @@ public class MasterDAO {
                         master.setId(resultSet.getLong(1));
                         //master.setUser(user);
                         master.setUser_id(id);
-                        master.setMark(BigDecimal.ZERO);
+                        master.setMark(0);
                     } else {
                         LOGGER.error("Failed to create user, no ID found.");
                     }
@@ -71,6 +69,33 @@ public class MasterDAO {
             LOGGER.error("Error to add to data base" + Arrays.toString(e.getStackTrace()));
         }
         return master;
+    }
+
+    public List<Master> findAllWithName() {
+        LOGGER.info("Getting all masters with name");
+        List<Master> listMasters = new ArrayList<>();
+
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(findAllQuery)){
+            ResultSet result = statement.executeQuery();
+
+            while(result.next()) {
+                Master master = new Master();
+                //master.setId(result.getLong("id"));
+                //master.setUser_id(result.getLong("user_id"));
+                master.setMark(result.getFloat("rate"));
+                master.setUser(
+                        new User(
+                                result.getString("first_name"),
+                                result.getString("last_name")));
+
+                listMasters.add(master);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return listMasters;
     }
 
     public List<Master> findAll() {
@@ -85,7 +110,7 @@ public class MasterDAO {
                 Master master = new Master();
                 master.setId(result.getLong("id"));
                 master.setUser_id(result.getLong("user_id"));
-                master.setMark(result.getBigDecimal("rate"));
+                master.setMark(result.getFloat("rate"));
 
                 listMasters.add(master);
             }
@@ -121,7 +146,7 @@ public class MasterDAO {
                 master = new Master();
                 master.setId(resultSet.getLong("id"));
                 master.setUser_id(resultSet.getLong("user_id"));
-                master.setMark(resultSet.getBigDecimal("mark"));
+                master.setMark(resultSet.getFloat("mark"));
 
             }
         } catch (SQLException e) {

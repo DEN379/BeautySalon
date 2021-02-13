@@ -1,12 +1,13 @@
 package com.sakadel.salon.dao;
 
-import com.sakadel.salon.entity.Record;
-import com.sakadel.salon.entity.ServiceMaster;
+import com.sakadel.salon.entity.*;
 import com.sakadel.salon.utility.ParseSqlProperties;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class RecordDAO {
     private static final Logger LOGGER = Logger.getLogger(RecordDAO.class);
@@ -16,6 +17,8 @@ public class RecordDAO {
 
     private static String createQuery;
     private static String findByIdQuery;
+    private static String findAllQuery;
+    private static String updateQuery;
 
     private  RecordDAO() {
         try {
@@ -29,6 +32,8 @@ public class RecordDAO {
         ParseSqlProperties properties = ParseSqlProperties.getInstance();
         createQuery = properties.getProperty("createRecord");
         findByIdQuery = properties.getProperty("findRecordById");
+        findAllQuery = properties.getProperty("findRecords");
+        updateQuery = properties.getProperty("updateStatus");
     }
 
     public static RecordDAO getInstance(){
@@ -65,6 +70,49 @@ public class RecordDAO {
             LOGGER.error("Error to add to data base" + Arrays.toString(e.getStackTrace()));
         }
         return record;
+    }
+
+    public List<Record> findAllRecords() {
+        LOGGER.info("Getting all records");
+        List<Record> listRecords = new ArrayList<>();
+
+
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(findAllQuery)){
+            ResultSet result = statement.executeQuery();
+
+            while(result.next()) {
+                Record record = new Record();
+                record.setId(result.getLong("id"));
+                record.setUser_id(result.getLong("user_id"));
+                record.setMaster_has_service_id(result.getLong("master_has_service_id"));
+                record.setStatus_id(result.getLong("status_id"));
+                record.setTime(result.getTime("time"));
+
+                listRecords.add(record);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return listRecords;
+    }
+
+
+    public Boolean updateStatus(Long id, Status status) {
+        LOGGER.info("Update status " + id + " to " + status.value());
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(updateQuery)){
+            statement.setLong(1, status.ordinal()+1);
+            statement.setLong(2, id);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     public Record findRecord(Long id) {

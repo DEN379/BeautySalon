@@ -2,7 +2,10 @@ package com.sakadel.salon.service;
 
 import com.sakadel.salon.dao.RecordDAO;
 import com.sakadel.salon.entity.Record;
+import com.sakadel.salon.entity.Status;
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 public class RecordService {
     private static final Logger LOGGER = Logger.getLogger(RecordService.class);
@@ -27,4 +30,17 @@ public class RecordService {
         }
         return recordDAO.findRecord(id);
     }
+
+    public List<Record> findAllRecord(){
+        LOGGER.info("Finding all records");
+
+        return recordDAO.findAllRecords();
+    }
+
+    public boolean updateStatus(Long id, Status status){
+        LOGGER.info("Update status");
+
+        return recordDAO.updateStatus(id, status);
+    }
+
 }
