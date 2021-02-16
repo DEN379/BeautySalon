@@ -29,6 +29,7 @@ public class Main extends HttpServlet {
 
         ServletCommand command = commandManager.getGetCommand(request);
         String page = command.execute(request, response);
+        if(page != null)
         request.getRequestDispatcher(page).forward(request, response);
     }
 
@@ -39,6 +40,7 @@ public class Main extends HttpServlet {
         ServletCommand command = commandManager.getPostCommand(request);
         String page = command.execute(request, response);
         //request.getRequestDispatcher(page).forward(request, response);
-        response.sendRedirect("/salon");
+        if(page.equals("/WEB-INF/time-table.jsp")) response.sendRedirect("/salon/timeTable");
+        else response.sendRedirect("/salon");
     }
 }

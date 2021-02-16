@@ -7,7 +7,8 @@ public class Record {
     private Long user_id;
     private Long master_has_service_id;
     private Long status_id;
-    private Time time;
+    private String time;
+    //private Time time;
 
     private User user;
     private User userMaster;
@@ -15,11 +16,15 @@ public class Record {
     private Service service;
     private Status status;
     private ServiceMaster serviceMaster;
+    private int hour;
 
     public Record(){
 
     }
-    public Record(Long id, Long user_id, Long master_has_service_id, Long status_id, Time time) {
+    public Record(int hour){
+        this.hour = hour;
+    }
+    public Record(Long id, Long user_id, Long master_has_service_id, Long status_id, String time) {
         this.id = id;
         this.user_id = user_id;
         this.master_has_service_id = master_has_service_id;
@@ -59,13 +64,13 @@ public class Record {
         this.status_id = status_id;
     }
 
-    public Time getTime() {
-        return time;
-    }
-
-    public void setTime(Time time) {
-        this.time = time;
-    }
+//    public Time getTime() {
+//        return time;
+//    }
+//
+//    public void setTime(Time time) {
+//        this.time = time;
+//    }
 
     public User getUser() {
         return user;
@@ -114,4 +119,19 @@ public class Record {
     public void setServiceMaster(ServiceMaster serviceMaster) {
         this.serviceMaster = serviceMaster;
     }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getHour(){
+        if(this.time != null)
+        return Integer.parseInt(this.time.substring(11,13));
+        else return hour;
+    }
+    public void setHour(int hour) { this.hour = hour;}
 }

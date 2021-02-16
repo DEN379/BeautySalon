@@ -36,11 +36,21 @@ public class RecordService {
 
         return recordDAO.findAllRecords();
     }
+    public List<Record> findAllRecordsTime(Long id, String date, boolean isReady){
+        LOGGER.info("Finding all records with date");
+
+        return recordDAO.findAllRecordsByDate(id, date, isReady);
+    }
 
     public boolean updateStatus(Long id, Status status){
         LOGGER.info("Update status");
 
         return recordDAO.updateStatus(id, status);
+    }
+    public boolean updateTime(Long id, String date){
+        LOGGER.info("Update time");
+
+        return recordDAO.updateTime(id, date);
     }
 
 }

@@ -83,11 +83,9 @@ public class ServiceDAO {
                 Service service = new Service();
                 service.setId(result.getLong("id"));
                 service.setName(result.getString("name"));
-                service.setName(result.getString("description"));
+                service.setDescription(result.getString("description"));
 
                 listService.add(service);
-                System.out.println(service.getName());
-                LOGGER.info(service.getName());
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

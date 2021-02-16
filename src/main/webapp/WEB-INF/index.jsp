@@ -26,11 +26,15 @@
 </c:if>
 <c:if test="${sessionScope.role == 'Master'}">
     <a href="${pageContext.request.contextPath}/records">Records</a>
+    <a href="${pageContext.request.contextPath}/timeTable">Time table</a>
+</c:if>
+<c:if test="${sessionScope.authenticated != null && sessionScope.authenticated == true && sessionScope.role == 'Client'}">
+    <a href="${pageContext.request.contextPath}/order">Order</a>
 </c:if>
 <hr>
 
 <select>
-    <option>Select master for service</option>
+    <option disabled selected>Select master for service</option>
     <c:forEach items="${masters}" var="master">
         <option><c:out value="${master.user.firstName}" /> <c:out value="${master.user.lastName}" /></option>
     </c:forEach>
@@ -42,9 +46,7 @@
         <p><c:out value="${service.description}" /></p>
     </div>
 </c:forEach>
-<c:if test="${sessionScope.authenticated != null && sessionScope.authenticated == true}">
-    <a href="${pageContext.request.contextPath}/order">Order</a>
-</c:if>
+
 
 <hr>
 

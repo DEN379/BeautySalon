@@ -22,8 +22,22 @@
         <p><c:out value="${record.userMaster.lastName}" /></p>
         <p><c:out value="${record.service.name}" /></p>
         <p class="status-id"><c:out value="${record.status_id}" /></p>
-        <p><c:out value="${record.time}" /></p>
-        <c:if test="${record.status_id == 1}">
+<%--        <p><c:out value="${record.time}" /></p>--%>
+        <form action="${pageContext.request.contextPath}/records/updateTime?id=${record.id}" method="post" id="time-form">
+            <select name="time" onchange="setButton();" required>
+                <option selected onload="load(this);" id="first-option" disabled>???</option>
+                <c:forEach items="${recTime}" var="time">
+                    <option value="<c:out value="${time}" />"><c:out value="${time}" />:00</option>
+                </c:forEach>
+            </select>
+            <input type="submit" value="Change time" id="time-button" style="display: none">
+        </form>
+
+        <div id="time-accept">
+
+
+        </div>
+        <c:if test="${record.status_id == 2}">
             <form action="${pageContext.request.contextPath}/records/accept?id=${record.id}" method="post">
                 <input type="submit" value="Accept payment">
             </form>
@@ -38,5 +52,25 @@
 <%--           onclick="alert('Do yo want to cancel a record?')">Cancel record</a>--%>
         <hr>
     </div>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", load);
+        function load() {
+            var f = document.querySelector("#first-option");
+            console.log(f);
+            var test = "${record.time}";
+            console.log(test);
+            var str = "<c:out value="${record.time}" />";
+            console.log(str);
+            f.value = str.substring(11,13);
+            f.innerHTML = "Current - "+str.substring(11,13)+":00";
+        }
+        function setButton() {
+            // var button = document.querySelector("#time-accept");
+            // button.innerHTML = "";
+            var form = document.querySelector("#time-button");
+            console.log(form);
+            form.style.display = "block";
+        }
+    </script>
 </body>
 </html>

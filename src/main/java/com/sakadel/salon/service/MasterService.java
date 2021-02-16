@@ -23,7 +23,7 @@ public class MasterService {
     }
 
     public Master findMasterById(Long id){
-        LOGGER.info("Finding a service by id = " + id);
+        LOGGER.info("Finding a master by id = " + id);
         if(id == null) {
             return null;
         }
@@ -34,5 +34,21 @@ public class MasterService {
         LOGGER.info("Getting all masters");
 
         return masterDAO.findAllWithName();
+    }
+
+    public Master findMasterWithNameById(Long id){
+        LOGGER.info("Finding master with name by id = " + id);
+        if(id == null) {
+            return null;
+        }
+        return masterDAO.findMasterWithNameById(id);
+    }
+
+    public Master findMasterByUserId(Long id){
+        LOGGER.info("Finding master by user id = " + id);
+        if(id == null) {
+            return null;
+        }
+        return masterDAO.findMasterByUserId(id);
     }
 }

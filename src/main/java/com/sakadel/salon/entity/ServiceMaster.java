@@ -8,6 +8,11 @@ public class ServiceMaster {
     private Long service_id;
     private BigDecimal price;
 
+    private Master master;
+    private Service service;
+    public ServiceMaster(){
+
+    }
     public ServiceMaster(Long id, Long master_id, Long service_id, BigDecimal price) {
         this.id = id;
         this.master_id = master_id;
@@ -45,5 +50,21 @@ public class ServiceMaster {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Master getMaster() {
+        return master;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public void setMaster(Master master) {
+        this.master = master;
     }
 }

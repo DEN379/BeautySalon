@@ -1,6 +1,7 @@
 package com.sakadel.salon.commands;
 
 import com.sakadel.salon.dao.UserDAO;
+import com.sakadel.salon.entity.Role;
 import com.sakadel.salon.entity.User;
 import com.sakadel.salon.service.UserService;
 import com.sakadel.salon.utility.ParsePathProperties;
@@ -41,6 +42,7 @@ public class LoginCommand implements ServletCommand{
 
             if (user != null) {
                 HttpSession session = request.getSession();
+                session.setAttribute("id",user.getId());
                 session.setAttribute("email", user.getEmail());
                 session.setAttribute("username", user.getFirstName() + " " + user.getLastName());
                 session.setAttribute("authenticated", true);

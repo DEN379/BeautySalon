@@ -19,6 +19,8 @@ public class RecordDAO {
     private static String findByIdQuery;
     private static String findAllQuery;
     private static String updateQuery;
+    private static String findAllByDateQuery;
+    private static String updateTimeQuery;
 
     private  RecordDAO() {
         try {
@@ -34,6 +36,8 @@ public class RecordDAO {
         findByIdQuery = properties.getProperty("findRecordById");
         findAllQuery = properties.getProperty("findRecords");
         updateQuery = properties.getProperty("updateStatus");
+        findAllByDateQuery = properties.getProperty("findTimes");
+        updateTimeQuery = properties.getProperty("updateTime");
     }
 
     public static RecordDAO getInstance(){
@@ -50,8 +54,7 @@ public class RecordDAO {
             statement.setLong(1, record.getUser_id());
             statement.setLong(2, record.getMaster_has_service_id());
             statement.setLong(3, record.getStatus_id());
-            statement.setLong(4, record.getStatus_id());
-            statement.setTime(5, record.getTime());
+            statement.setString(4, record.getTime());
             int resQuery = statement.executeUpdate();
             if(resQuery == 0){
                 LOGGER.error("Creation record failed");
@@ -87,7 +90,42 @@ public class RecordDAO {
                 record.setUser_id(result.getLong("user_id"));
                 record.setMaster_has_service_id(result.getLong("master_has_service_id"));
                 record.setStatus_id(result.getLong("status_id"));
-                record.setTime(result.getTime("time"));
+                record.setTime(result.getString("time"));
+
+                listRecords.add(record);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return listRecords;
+    }
+
+    public List<Record> findAllRecordsByDate(Long id, String date, boolean isReady) {
+        LOGGER.info("Getting all records by date");
+        List<Record> listRecords = new ArrayList<>();
+
+        String sql = " AND status_id != 1";
+        if(isReady)
+        findAllByDateQuery += sql;
+
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(findAllByDateQuery)){
+            statement.setLong(1, id);
+            statement.setString(2, date+"%");
+            ResultSet result = statement.executeQuery();
+
+            while(result.next()) {
+                Record record = new Record();
+                record.setId(result.getLong("id"));
+                String s = result.getString("time");
+                LOGGER.info("time in find => "+s);
+                record.setTime(s);
+                record.setUser_id(result.getLong("user_id"));
+                record.setMaster_has_service_id(result.getLong("master_has_service_id"));
+
+                record.setStatus_id(result.getLong("status_id"));
+                //Record record = getRecord(result);
 
                 listRecords.add(record);
             }
@@ -104,6 +142,22 @@ public class RecordDAO {
         //try(Connection connection = connectionPool.getConnection()) {
         try(PreparedStatement statement = connection.prepareStatement(updateQuery)){
             statement.setLong(1, status.ordinal()+1);
+            statement.setLong(2, id);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    public Boolean updateTime(Long id, String date) {
+        LOGGER.info("Update record " + id + " time => " + date);
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(updateTimeQuery)){
+            statement.setString(1, date);
             statement.setLong(2, id);
             statement.executeUpdate();
 
@@ -142,7 +196,7 @@ public class RecordDAO {
                         resultSet.getLong("user_id"),
                         resultSet.getLong("master_has_service_id"),
                         resultSet.getLong("status_id"),
-                        resultSet.getTime("time"));
+                        resultSet.getString("time"));
             }
         } catch (SQLException e) {
             LOGGER.info(e.getMessage());

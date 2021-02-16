@@ -20,6 +20,8 @@ public class MasterDAO {
     private static String updateQuery;
     private static String findByIdQuery;
     private static String findAllQuery;
+    private static String findMasterByName;
+    private static String findByUserIdQuery;
 
     private  MasterDAO() {
         try {
@@ -34,6 +36,8 @@ public class MasterDAO {
         updateQuery = properties.getProperty("createMaster");
         findByIdQuery = properties.getProperty("findMasterById");
         findAllQuery = properties.getProperty("findAllMastersWithName");
+        findMasterByName = properties.getProperty("findMasterByName");
+        findByUserIdQuery = properties.getProperty("findMasterByUserId");
     }
 
     public static MasterDAO getInstance(){
@@ -98,6 +102,33 @@ public class MasterDAO {
         return listMasters;
     }
 
+    public Master findMasterWithNameById(Long id) {
+        LOGGER.info("Getting master with name by id " + id);
+        Master master = null;
+
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(findMasterByName)){
+            statement.setLong(1, id);
+            ResultSet result = statement.executeQuery();
+            master = new Master();
+            User user = new User();
+            if(result.next()) {
+                user.setFirstName(result.getString("user.first_name"));
+                user.setLastName(result.getString("last_name"));
+                master.setUser(user);
+                master.setMark(result.getFloat("rate"));
+
+                LOGGER.info("VSE ZAPISALOS V MASTER");
+            }
+
+
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return master;
+    }
+
     public List<Master> findAll() {
         LOGGER.info("Getting all masters");
         List<Master> listMasters = new ArrayList<>();
@@ -120,6 +151,28 @@ public class MasterDAO {
 
         return listMasters;
     }
+
+
+    public Master findMasterByUserId(Long id){
+        LOGGER.info("Getting master by user id " + id);
+        Master master = null;
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(findByUserIdQuery)){
+            statement.setLong(1, id);
+
+            ResultSet result = statement.executeQuery();
+
+            if(result.next()) {
+                master = new Master();
+                master.setId(result.getLong("id"));
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return master;
+    }
+
 
     public Master findMasterById(Long id){
         LOGGER.info("Getting master by id " + id);

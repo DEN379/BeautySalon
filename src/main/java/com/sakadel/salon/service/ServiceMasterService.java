@@ -4,6 +4,8 @@ import com.sakadel.salon.dao.ServiceMasterDAO;
 import com.sakadel.salon.entity.ServiceMaster;
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 public class ServiceMasterService {
     private static final Logger LOGGER = Logger.getLogger(ServiceMasterService.class);
 
@@ -26,5 +28,20 @@ public class ServiceMasterService {
             return null;
         }
         return serviceMasterDAO.findServiceMaster(id);
+    }
+
+    public List<ServiceMaster> findMastersByService(Long id){
+        LOGGER.info("Finding masters by service id = " + id);
+        return serviceMasterDAO.findMasterByService(id);
+    }
+
+    public List<ServiceMaster> findServiceMasterByMasterId(Long id){
+        LOGGER.info("Finding masters-service by master id = " + id);
+        return serviceMasterDAO.findServiceMasterByMaster(id);
+    }
+
+    public ServiceMaster findServiceMasterByMasterAndService(Long master_id, Long service_id){
+        LOGGER.info("Finding masters-service by master id "+master_id+"and service id " + service_id);
+        return serviceMasterDAO.findServiceMasterByMasterAndService(master_id, service_id);
     }
 }

@@ -9,6 +9,11 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ItemPageCommand implements ServletCommand {
 
@@ -44,7 +49,7 @@ public class ItemPageCommand implements ServletCommand {
         page = properties.getProperty("recordItemPage");
     }
 
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
         long id = Integer.parseInt(request.getParameter("id"));
@@ -64,7 +69,43 @@ public class ItemPageCommand implements ServletCommand {
         rec.setStatus(status);
 
 
+
+        List<ServiceMaster> list = serviceMaster.findServiceMasterByMasterId(sm.getMaster_id());
+        List<Record> recs = new ArrayList<>();
+        for(ServiceMaster s : list){
+            recs.addAll(record.findAllRecordsTime(s.getId(), rec.getTime().substring(0,10), false));
+            LOGGER.info("in for sm list");
+        }
+
+        LOGGER.info("subst "+rec.getTime().substring(0,11));
+        //List<Record> recs = record.findAllRecordsTime(rec.getMaster_has_service_id(), rec.getTime().substring(0,10));
+        for(Record r : recs) {
+            LOGGER.info("rec !!!! "+ r.getTime());
+        }
+        List<Integer> freeHours = MasterTime.getFreeHours(recs);
+
+        LOGGER.info("hours = "+ Arrays.toString(freeHours.toArray()));
+//        PrintWriter out = response.getWriter();
+//
+//        StringBuilder sb = new StringBuilder();
+//        String time = rec.getTime().substring(11,13);
+//        LOGGER.info("after writer");
+//        sb.append("<select name=\"time\" form=\"order\" required onchange=\"\">\n" +
+//                "    <option selected value=\"").append(time).append("\">").append("Current - ").append(time).append(":00").append("</option>");
+//        for(Integer i : freeHours){
+//            sb.append("<option value=\"").append(i).append(":00").append("\">")
+//                    .append(i).append(":00").append("</option>");
+//            LOGGER.info("append "+sb.toString());
+//        }
+//        sb.append("</select>");
+//
+//        LOGGER.info("after append"+sb.toString());
+//        out.print(sb.toString());
+//        LOGGER.info("after print");
+
+
         request.setAttribute("record", rec);
+        request.setAttribute("recTime", freeHours);
 
 
         return page;

@@ -1,12 +1,15 @@
 package com.sakadel.salon.dao;
 
+import com.sakadel.salon.entity.Record;
 import com.sakadel.salon.entity.ServiceMaster;
 import com.sakadel.salon.service.ServiceMasterService;
 import com.sakadel.salon.utility.ParseSqlProperties;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ServiceMasterDAO {
     private static final Logger LOGGER = Logger.getLogger(ServiceMasterDAO.class);
@@ -16,6 +19,9 @@ public class ServiceMasterDAO {
 
     private static String createQuery;
     private static String findByIdQuery;
+    private static String findByService;
+    private static String findByMasterIdQuery;
+    private static String findByMasterAndServiceIdQuery;
 
     private  ServiceMasterDAO() {
         try {
@@ -29,6 +35,9 @@ public class ServiceMasterDAO {
         ParseSqlProperties properties = ParseSqlProperties.getInstance();
         createQuery = properties.getProperty("createServiceMaster");
         findByIdQuery = properties.getProperty("findServiceMasterById");
+        findByMasterIdQuery = properties.getProperty("findServiceMasterByMasterId");
+        findByService = properties.getProperty("findMastersByService");
+        findByMasterAndServiceIdQuery = properties.getProperty("findServiceMasterByServiceAndMaster");
     }
 
     public static ServiceMasterDAO getInstance(){
@@ -82,6 +91,30 @@ public class ServiceMasterDAO {
 //        return serviceMaster;
 //    }
 
+
+    public List<ServiceMaster> findMasterByService(Long id) {
+        LOGGER.info("Getting masters by service id " + id);
+        List<ServiceMaster> listMasters = new ArrayList<>();
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(findByService)){
+            statement.setLong(1, id);
+
+            ResultSet result = statement.executeQuery();
+            while(result.next()) {
+                ServiceMaster serviceMaster = new ServiceMaster();
+                serviceMaster.setMaster_id(result.getLong("master_id"));
+                serviceMaster.setPrice(result.getBigDecimal("price"));
+
+                listMasters.add(serviceMaster);
+                LOGGER.info("VSE ZAPISALOS V SERMAS "+listMasters.size());
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return listMasters;
+    }
+
     public ServiceMaster findServiceMaster(Long id) {
         LOGGER.info("Getting service-master by id " + id);
         ServiceMaster serviceMaster = null;
@@ -92,6 +125,50 @@ public class ServiceMasterDAO {
             ResultSet result = statement.executeQuery();
 
             serviceMaster = getService(result);
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return serviceMaster;
+    }
+
+    public ServiceMaster findServiceMasterByMasterAndService(Long master_id, Long service_id) {
+        LOGGER.info("Getting service-master by master id "+master_id+"and service id " + service_id);
+        ServiceMaster sm = null;
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(findByMasterAndServiceIdQuery)){
+            statement.setLong(1, master_id);
+            statement.setLong(2, service_id);
+
+            ResultSet result = statement.executeQuery();
+
+            if (result.next()){
+                sm = new ServiceMaster();
+                sm.setId(result.getLong("id"));
+                sm.setPrice(result.getBigDecimal("price"));
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return sm;
+    }
+
+    public List<ServiceMaster> findServiceMasterByMaster(Long id) {
+        LOGGER.info("Getting service-master by master id " + id);
+        List<ServiceMaster> serviceMaster = new ArrayList<>();
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(findByMasterIdQuery)){
+            statement.setLong(1, id);
+
+            ResultSet result = statement.executeQuery();
+
+            while (result.next()){
+                ServiceMaster sm = new ServiceMaster();
+                sm.setId(result.getLong("id"));
+                sm.setService_id(result.getLong("service_id"));
+                serviceMaster.add(sm);
+            }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }

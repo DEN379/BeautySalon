@@ -36,6 +36,7 @@ public class OrderPageCommand implements ServletCommand{
         LOGGER.info("Executing command");
 
 
+        request.setAttribute("services", service.findAll());
         return page;
     }
 }
