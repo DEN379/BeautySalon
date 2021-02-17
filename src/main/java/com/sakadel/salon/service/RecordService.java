@@ -36,6 +36,11 @@ public class RecordService {
 
         return recordDAO.findAllRecords();
     }
+    public List<Record> findAllRecordsByUserId(Long id){
+        LOGGER.info("Finding all records by user id " + id);
+
+        return recordDAO.findRecordsByUserId(id);
+    }
     public List<Record> findAllRecordsTime(Long id, String date, boolean isReady){
         LOGGER.info("Finding all records with date");
 

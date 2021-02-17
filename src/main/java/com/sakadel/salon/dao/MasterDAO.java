@@ -78,14 +78,49 @@ public class MasterDAO {
     public List<Master> findAllWithName() {
         LOGGER.info("Getting all masters with name");
         List<Master> listMasters = new ArrayList<>();
-
         //try(Connection connection = connectionPool.getConnection()) {
         try(PreparedStatement statement = connection.prepareStatement(findAllQuery)){
             ResultSet result = statement.executeQuery();
 
             while(result.next()) {
                 Master master = new Master();
-                //master.setId(result.getLong("id"));
+                master.setId(result.getLong("id"));
+                //master.setUser_id(result.getLong("user_id"));
+                master.setMark(result.getFloat("rate"));
+                master.setUser(
+                        new User(
+                                result.getString("first_name"),
+                                result.getString("last_name")));
+
+                listMasters.add(master);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return listMasters;
+    }
+
+
+    public List<Master> findAllWithNameOrder(boolean isByRate, boolean isDescending) {
+        LOGGER.info("Getting all masters with name");
+        List<Master> listMasters = new ArrayList<>();
+        String sql = findAllQuery;
+        String order = " ORDER BY ";
+        if(isByRate) order += "master.rate";
+        else order += "user.first_name"; //, user.last_name";
+
+        sql += order;
+        if(isDescending) sql += " DESC";
+
+
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            ResultSet result = statement.executeQuery();
+
+            while(result.next()) {
+                Master master = new Master();
+                master.setId(result.getLong("id"));
                 //master.setUser_id(result.getLong("user_id"));
                 master.setMark(result.getFloat("rate"));
                 master.setUser(

@@ -21,6 +21,7 @@ public class RecordDAO {
     private static String updateQuery;
     private static String findAllByDateQuery;
     private static String updateTimeQuery;
+    private static String findAllByUserQuery;
 
     private  RecordDAO() {
         try {
@@ -38,6 +39,7 @@ public class RecordDAO {
         updateQuery = properties.getProperty("updateStatus");
         findAllByDateQuery = properties.getProperty("findTimes");
         updateTimeQuery = properties.getProperty("updateTime");
+        findAllByUserQuery = properties.getProperty("findRecordByUserId");
     }
 
     public static RecordDAO getInstance(){
@@ -169,6 +171,32 @@ public class RecordDAO {
         return true;
     }
 
+    public List<Record> findRecordsByUserId(Long id) {
+        LOGGER.info("Getting service-master by user id " + id);
+        List<Record> records = new ArrayList<>();
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(findAllByUserQuery)){
+            statement.setLong(1, id);
+
+            ResultSet result = statement.executeQuery();
+
+            while(result.next()) {
+                Record record = new Record();
+                record.setId(result.getLong("id"));
+                record.setUser_id(result.getLong("user_id"));
+                record.setMaster_has_service_id(result.getLong("master_has_service_id"));
+                record.setStatus_id(result.getLong("status_id"));
+                record.setTime(result.getString("time"));
+
+                records.add(record);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return records;
+    }
+
     public Record findRecord(Long id) {
         LOGGER.info("Getting service-master by id " + id);
         Record record = null;
@@ -185,6 +213,8 @@ public class RecordDAO {
 
         return record;
     }
+
+
 
     private Record getRecord(ResultSet resultSet) {
         Record record = null;

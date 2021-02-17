@@ -35,6 +35,11 @@ public class MasterService {
 
         return masterDAO.findAllWithName();
     }
+    public List<Master> findAllWithNameOrderBy(boolean isByRate, boolean isDescending) {
+        LOGGER.info("Getting all masters with order");
+
+        return masterDAO.findAllWithNameOrder(isByRate, isDescending);
+    }
 
     public Master findMasterWithNameById(Long id){
         LOGGER.info("Finding master with name by id = " + id);

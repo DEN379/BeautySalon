@@ -25,7 +25,6 @@ public class AcceptedStatusCommand implements ServletCommand {
 
         ParsePathProperties properties = ParsePathProperties.getInstance();
         recordsPage = properties.getProperty("recordsPage");
-        mainPage = properties.getProperty("mainPage");
     }
 
     @Override
@@ -38,6 +37,6 @@ public class AcceptedStatusCommand implements ServletCommand {
         if(record.updateStatus(id, Status.ACCEPTED)){
             return resultPage;
         }
-        else return mainPage;
+        else return recordsPage;
     }
 }

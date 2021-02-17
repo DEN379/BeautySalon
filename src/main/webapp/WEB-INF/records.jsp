@@ -22,7 +22,7 @@
         <p><c:out value="${record.userMaster.firstName}" /></p>
         <p><c:out value="${record.userMaster.lastName}" /></p>
         <p><c:out value="${record.service.name}" /></p>
-        <p class="status-id"><c:out value="${record.status_id}" /></p>
+        <p class="status-id"><c:out value="${record.status.value()}" /></p>
         <p><c:out value="${record.time}" /></p>
         <a href="${pageContext.request.contextPath}/records/edit?id=${record.id}">Details</a>
         <hr>

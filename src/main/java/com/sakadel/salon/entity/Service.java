@@ -5,7 +5,10 @@ public class Service {
     private String name;
     private String description;
     public Service(){
-
+    }
+    public Service(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
     public Service(Long id, String name, String description) {
         this.id = id;

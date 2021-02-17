@@ -38,6 +38,6 @@ public class CancelStatusCommand implements ServletCommand {
         if(record.updateStatus(id, Status.CANCELED)){
             return resultPage;
         }
-        else return mainPage;
+        else return recordsPage;
     }
 }

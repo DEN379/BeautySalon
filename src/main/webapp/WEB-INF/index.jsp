@@ -23,6 +23,8 @@
 </c:if>
 <c:if test="${sessionScope.role == 'Admin'}">
     <a href="${pageContext.request.contextPath}/records">Orders</a>
+    <a href="${pageContext.request.contextPath}/createService">Create service</a>
+    <a href="${pageContext.request.contextPath}/addMaster">Add master</a>
 </c:if>
 <c:if test="${sessionScope.role == 'Master'}">
     <a href="${pageContext.request.contextPath}/records">Records</a>
@@ -30,40 +32,94 @@
 </c:if>
 <c:if test="${sessionScope.authenticated != null && sessionScope.authenticated == true && sessionScope.role == 'Client'}">
     <a href="${pageContext.request.contextPath}/order">Order</a>
+    <a href="${pageContext.request.contextPath}/myOrders">My orders</a>
 </c:if>
 <hr>
 
-<select>
-    <option disabled selected>Select master for service</option>
+<select onchange="filterServiceByMaster(this);">
+    <option selected value="0">All services</option>
     <c:forEach items="${masters}" var="master">
-        <option><c:out value="${master.user.firstName}" /> <c:out value="${master.user.lastName}" /></option>
+        <option value="<c:out value="${master.id}" />">
+            <c:out value="${master.user.firstName}" /> <c:out value="${master.user.lastName}" />
+        </option>
     </c:forEach>
 </select>
-
-<c:forEach items="${services}" var="service">
-    <div>
-        <p><c:out value="${service.name}" /></p>
-        <p><c:out value="${service.description}" /></p>
-    </div>
-</c:forEach>
-
-
-<hr>
-
-<select>
-    <option>Select service to choose master</option>
+<div id="services">
     <c:forEach items="${services}" var="service">
-        <option><c:out value="${service.name}" /></option>
+        <div>
+            <p><c:out value="${service.name}" /></p>
+            <p><c:out value="${service.description}" /></p>
+        </div>
     </c:forEach>
-</select>
-<c:forEach items="${masters}" var="master">
-    <div>
-        <p><c:out value="${master.user.firstName}" /> <c:out value="${master.user.lastName}" /></p>
-        <p><c:out value="${master.mark}" /></p>
-    </div>
-</c:forEach>
+</div>
+
+
 
 <hr>
 
+<select onchange="filterMasterByService(this);">
+    <option selected value="0">All masters</option>
+    <c:forEach items="${services}" var="service">
+        <option value="<c:out value="${service.id}" />"><c:out value="${service.name}" /></option>
+    </c:forEach>
+</select>
+<select onchange="orderBy();" id="order-column">
+    <option selected value="0">Normal order</option>
+    <option value="1">Order by name</option>
+    <option value="2">Order by rate</option>
+</select>
+<select onchange="orderBy();" id="order-way">
+    <option selected value="0">ASC</option>
+    <option value="1">DESC</option>
+</select>
+<div id="masters">
+    <c:forEach items="${masters}" var="master">
+        <div>
+            <p><c:out value="${master.user.firstName}" /> <c:out value="${master.user.lastName}" /></p>
+            <p><c:out value="${master.mark}" /></p>
+        </div>
+    </c:forEach>
+</div>
+
+
+<hr>
+<script>
+    function filterServiceByMaster(master) {
+        console.log(master);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("services").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/salon/filterServices?id="+master.value , true);
+        xhttp.send();
+    }
+    function filterMasterByService(service) {
+        console.log(service);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("masters").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/salon/filterMasters?id="+service.value , true);
+        xhttp.send();
+    }
+    function orderBy() {
+        var column = document.getElementById("order-column").value;
+        var way = document.getElementById("order-way").value;
+        console.log(column);
+        console.log(way);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("masters").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/salon/orderBy?id="+column+"&way="+way , true);
+        xhttp.send();
+    }
+</script>
 </body>
 </html>

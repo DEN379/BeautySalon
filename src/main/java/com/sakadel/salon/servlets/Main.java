@@ -39,8 +39,25 @@ public class Main extends HttpServlet {
 
         ServletCommand command = commandManager.getPostCommand(request);
         String page = command.execute(request, response);
-        //request.getRequestDispatcher(page).forward(request, response);
-        if(page.equals("/WEB-INF/time-table.jsp")) response.sendRedirect("/salon/timeTable");
-        else response.sendRedirect("/salon");
+
+        response.sendRedirect(getUrl(page));
+    }
+
+    private String getUrl(String page){
+        switch (page){
+
+            case "/WEB-INF/order.jsp":
+            case "/WEB-INF/my-orders.jsp":
+                return "/salon/myOrders";
+            case "/WEB-INF/time-table.jsp":
+                return "/salon/timeTable";
+            case "/WEB-INF/records.jsp":
+            case "/WEB-INF/item.jsp":
+                return "/salon/records";
+            case "/WEB-INF/index.jsp":
+            case "/WEB-INF/login.jsp":
+            case "/WEB-INF/register.jsp":
+            default: return "/salon";
+        }
     }
 }
