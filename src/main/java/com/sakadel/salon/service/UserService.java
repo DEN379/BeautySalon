@@ -19,6 +19,13 @@ public class UserService {
         this.userDao = userDao;
     }
 
+    public List<User> findAllUsers(int offset, int limit) {
+        LOGGER.info("Find all users");
+
+        return userDao.findAllUsers(offset,limit);
+
+    }
+
     public boolean checkEmailAvailability(String email) {
         LOGGER.info("Checking availability of email");
 

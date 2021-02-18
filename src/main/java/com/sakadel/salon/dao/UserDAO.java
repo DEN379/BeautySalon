@@ -1,9 +1,12 @@
 package com.sakadel.salon.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.sakadel.salon.entity.Role;
+import com.sakadel.salon.entity.Service;
 import com.sakadel.salon.entity.User;
 import com.sakadel.salon.entity.UserBuilder;
 import com.sakadel.salon.utility.ParseSqlProperties;
@@ -20,6 +23,7 @@ public class UserDAO {
     private static String findByIdQuery;
     private static String findByEmailQuery;
     private static String findByEmailAndPasswordQuery;
+    private static String findAllQuery;
 
     private  UserDAO(){
         try {
@@ -37,6 +41,7 @@ public class UserDAO {
         findByIdQuery = properties.getProperty("findUserById");
         findByEmailQuery = properties.getProperty("findUserByEmail");
         findByEmailAndPasswordQuery = properties.getProperty("findUserByEmailAndPassword");
+        findAllQuery = properties.getProperty("findAllUsers");
     }
 
     public static UserDAO getInstance(){
@@ -75,6 +80,34 @@ public class UserDAO {
         }
         return user;
     }
+
+    public List<User> findAllUsers(int offset, int limit) {
+        LOGGER.info("Getting all users by limit " + limit + " with offset "+offset);
+        List<User> users = new ArrayList<>();
+        //String findByEmailAndPasswordQuery = "SELECT * FROM `user` WHERE email = ? AND password = ?";
+        //try(Connection connection = connectionPool.getConnection()) {
+        try (PreparedStatement statement = connection.prepareStatement(findAllQuery)){
+            statement.setInt(1, offset);
+            statement.setInt(2, limit);
+
+            ResultSet result = statement.executeQuery();
+            while(result.next()) {
+                User user = new User();
+                user.setId(result.getLong("id"));
+                user.setFirstName(result.getString("first_name"));
+                user.setLastName(result.getString("last_name"));
+                user.setEmail(result.getString("email"));
+                user.setRole(Role.values()[result.getInt("role_id") - 1]);
+
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return users;
+    }
+
 
     public User findUserByEmailAndPassword(String email, String password) {
         LOGGER.info("Getting user with email " + email);

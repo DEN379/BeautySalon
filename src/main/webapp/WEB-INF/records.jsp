@@ -9,26 +9,59 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <title>Records</title>
-<%--    <script defer src="script.js"></script>--%>
 </head>
 <body>
+<div class="container">
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">Record id#</th>
+        <th scope="col">User name</th>
+        <th scope="col">Master name</th>
+        <th scope="col">Service</th>
+        <th scope="col">Status</th>
+        <th scope="col">Date and time</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+        <c:forEach items="${records}" var="record">
+            <tr>
+                <th scope="row"><c:out value="${record.id}" /></th>
+                <td><c:out value="${record.user.firstName}" />
+                    <c:out value="${record.user.lastName}" /></td>
+                <td><c:out value="${record.userMaster.firstName}" />
+                    <c:out value="${record.userMaster.lastName}" /></td>
+                <td><c:out value="${record.service.name}" /></td>
+                <td><c:out value="${record.status.value()}" /></td>
+                <td><c:out value="${record.time}" /></td>
+                <td><a href="${pageContext.request.contextPath}/records/edit?id=${record.id}">Details</a></td>
+            </tr>
+        </c:forEach>
+    </tbody>
+</table>
 
-<c:forEach items="${records}" var="record">
-    <div class="record-table">
-        <p class="record-id"><c:out value="${record.id}" /></p>
-        <p><c:out value="${record.user.firstName}" /></p>
-        <p><c:out value="${record.user.lastName}" /></p>
-        <p><c:out value="${record.userMaster.firstName}" /></p>
-        <p><c:out value="${record.userMaster.lastName}" /></p>
-        <p><c:out value="${record.service.name}" /></p>
-        <p class="status-id"><c:out value="${record.status.value()}" /></p>
-        <p><c:out value="${record.time}" /></p>
-        <a href="${pageContext.request.contextPath}/records/edit?id=${record.id}">Details</a>
-        <hr>
-    </div>
-</c:forEach>
-<%--<script defer>--%>
+    <div id="pages"><c:out value="${pages}" /></div>
+</div>
+<script defer>
+
+    document.addEventListener("DOMContentLoaded", load);
+    function load() {
+
+        document.getElementById("pages").innerHTML = `${pages}`;
+        // var xhttp = new XMLHttpRequest();
+        // xhttp.onreadystatechange = function() {
+        //     if (this.readyState == 4 && this.status == 200) {
+        //         document.getElementById("pages").innerHTML = this.responseText;
+        //     }
+        // };
+        // xhttp.open("GET", "/salon/records?page=1" , true);
+        // xhttp.send();
+    }
+
 
 <%--    var table = document.querySelector(".record-table");--%>
 <%--    var acceptButton = table.querySelectorAll(".accept-button");--%>
@@ -74,6 +107,6 @@
 
 <%--    }--%>
 <%--    console.log("ne zaiwlo(((((");--%>
-<%--</script>--%>
+</script>
 </body>
 </html>

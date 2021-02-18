@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<div >
+<div class="container">
     <form accept-charset="UTF-8" role="form" method="post" action="${pageContext.request.contextPath}/login">
         <fieldset>
             <div class="form-group">

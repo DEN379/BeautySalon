@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemPageCommand implements ServletCommand {
 
@@ -77,14 +80,27 @@ public class ItemPageCommand implements ServletCommand {
             LOGGER.info("in for sm list");
         }
 
-        LOGGER.info("subst "+rec.getTime().substring(0,11));
+        String date = rec.getTime().substring(0,11);
+        LOGGER.info("subst "+rec.getTime().substring(0,11)+"sss");
         //List<Record> recs = record.findAllRecordsTime(rec.getMaster_has_service_id(), rec.getTime().substring(0,10));
         for(Record r : recs) {
             LOGGER.info("rec !!!! "+ r.getTime());
         }
         List<Integer> freeHours = MasterTime.getFreeHours(recs);
 
-        LOGGER.info("hours = "+ Arrays.toString(freeHours.toArray()));
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        String dateNow = dtf.format(now);
+        LOGGER.info("subst2 "+dateNow.substring(0,11)+"sss2");
+        if(date.equals(dateNow.substring(0,11))){
+            freeHours = freeHours.stream()
+                    .filter(n -> n > Integer.parseInt(dateNow.substring(11,13)))
+                    .collect(Collectors.toList());
+        } else if(date.compareTo(dateNow.substring(0,11)) < 0){
+            freeHours = null;
+        }
+
+        //LOGGER.info("hours = "+ Arrays.toString(freeHours.toArray()));
 //        PrintWriter out = response.getWriter();
 //
 //        StringBuilder sb = new StringBuilder();

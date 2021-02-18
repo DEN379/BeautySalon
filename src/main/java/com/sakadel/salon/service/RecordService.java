@@ -36,6 +36,16 @@ public class RecordService {
 
         return recordDAO.findAllRecords();
     }
+    public List<Record> findRecordsWithLimit(int offset, int limit){
+        LOGGER.info("Finding records with limit "+limit+" and offset "+offset);
+
+        return recordDAO.findRecordsWithLimit(offset,limit);
+    }
+    public int getCountRecords(){
+        LOGGER.info("Getting count of records");
+
+        return recordDAO.getCountRecords();
+    }
     public List<Record> findAllRecordsByUserId(Long id){
         LOGGER.info("Finding all records by user id " + id);
 

@@ -27,7 +27,6 @@
     <a href="${pageContext.request.contextPath}/addMaster">Add master</a>
 </c:if>
 <c:if test="${sessionScope.role == 'Master'}">
-    <a href="${pageContext.request.contextPath}/records">Records</a>
     <a href="${pageContext.request.contextPath}/timeTable">Time table</a>
 </c:if>
 <c:if test="${sessionScope.authenticated != null && sessionScope.authenticated == true && sessionScope.role == 'Client'}">

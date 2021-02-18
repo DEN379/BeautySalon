@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GetTimeCommand implements ServletCommand {
 
@@ -74,6 +77,23 @@ public class GetTimeCommand implements ServletCommand {
         List<Integer> freeHours = MasterTime.getFreeHours(records);
 
         LOGGER.info("hours = "+Arrays.toString(freeHours.toArray()));
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        String dateNow = dtf.format(now);
+
+        LOGGER.info(",,,1"+date+"1,,,");
+        LOGGER.info(",,,2"+dateNow.substring(0,10)+"2,,,");
+        if(date.equals(dateNow.substring(0,10))){
+            freeHours = freeHours.stream()
+                    .filter(n -> n > Integer.parseInt(dateNow.substring(11,13)))
+                    .collect(Collectors.toList());
+        }
+
+
+
+
+
         PrintWriter out = response.getWriter();
 
         StringBuilder sb = new StringBuilder();

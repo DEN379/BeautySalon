@@ -21,7 +21,7 @@
         <p><c:out value="${record.userMaster.firstName}" /></p>
         <p><c:out value="${record.userMaster.lastName}" /></p>
         <p><c:out value="${record.service.name}" /></p>
-        <p class="status-id"><c:out value="${record.status_id}" /></p>
+        <p class="status-id"><c:out value="${record.status.value()}" /></p>
 <%--        <p><c:out value="${record.time}" /></p>--%>
         <form action="${pageContext.request.contextPath}/records/updateTime?id=${record.id}" method="post" id="time-form">
             <select name="time" onchange="setButton();" required>
@@ -41,13 +41,12 @@
             <form action="${pageContext.request.contextPath}/records/accept?id=${record.id}" method="post">
                 <input type="submit" value="Accept payment">
             </form>
-<%--            <a href="${pageContext.request.contextPath}/records/accept?id=${record.id}"--%>
-<%--               class="accept-button" >Accept payment</a>--%>
-
         </c:if>
+        <c:if test="${record.status_id > 3}">
         <form action="${pageContext.request.contextPath}/records/cancel?id=${record.id}" method="post">
             <input type="submit" onclick="alert('Do yo want to cancel a record?')" value="Cancel record">
         </form>
+        </c:if>
 <%--        <a href="${pageContext.request.contextPath}/records/cancel?id=${record.id}"--%>
 <%--           onclick="alert('Do yo want to cancel a record?')">Cancel record</a>--%>
         <hr>

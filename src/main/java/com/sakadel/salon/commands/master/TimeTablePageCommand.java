@@ -59,15 +59,21 @@ public class TimeTablePageCommand implements ServletCommand {
         HttpSession session = request.getSession();
         Master mas = master.findMasterByUserId((long)session.getAttribute("id"));
 
+
         List<ServiceMaster> listSm = serviceMaster.findServiceMasterByMasterId(mas.getId());
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime now = LocalDateTime.now();
-        String date = dtf.format(now);
+        String time = request.getParameter("date");
+        if(time == null){
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDateTime now = LocalDateTime.now();
+            time = dtf.format(now);
+        }
+
+
 
         List<Record> records = new ArrayList<>();
         for(ServiceMaster sm : listSm){
-            records.addAll(record.findAllRecordsTime(sm.getId(), date, true));
+            records.addAll(record.findAllRecordsTime(sm.getId(), time, true));
             sm.setService(service.findServiceById(sm.getService_id()));
         }
 
@@ -96,6 +102,7 @@ public class TimeTablePageCommand implements ServletCommand {
 //        for(Record r: recWithEmptySpace){
 //            LOGGER.info(r.);
 //        }
+
 
 
         request.setAttribute("records", recWithEmptySpace);

@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +51,21 @@ public class RecordsPageCommand implements ServletCommand {
         pageDetails = properties.getProperty("recordItemPage");
     }
 
-    public String execute(HttpServletRequest request, HttpServletResponse response) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
-        List<Record> records = record.findAllRecord();
+        //List<Record> records = record.findAllRecord();
+        int pageNumb = 1;
+        if(request.getParameter("page") != null)
+            pageNumb = Integer.parseInt(request.getParameter("page"));
+        int count = record.getCountRecords();
+        LOGGER.info("counttttt " + count);
+        int limit = 2;
+        int numberPages = (int) Math.ceil((float)count / limit);
+        LOGGER.info("numberrrr pages"+numberPages);
+        List<Record> records = record.findRecordsWithLimit((pageNumb-1)*limit, limit);
+
+
         List<User> users = new ArrayList<>();
         for(int i = 0; i < records.size(); i++){
             users.add(user.findUserById(records.get(i).getUser_id()));
@@ -91,6 +104,23 @@ public class RecordsPageCommand implements ServletCommand {
         }
         request.setAttribute("records", records);
 
+
+        //PrintWriter out = response.getWriter();
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("<ul type=\"none\" class=\"pager\">\n");
+        for(int i = 0; i < numberPages; i++){
+
+            sb.append(
+                    "<li class=\"pager-item\"><a href=\"").append(request.getContextPath())
+                    .append("/records?page=").append(i+1).append("\" title=\"На страницу номер 2\">")
+                    .append(i+1).append("</a></li>\n");
+        }
+        sb.append( "   </ul>");
+
+        //out.print(sb.toString());
+
+        request.setAttribute("pages",sb.toString());
 
 //        List<Record> records = record.findAllRecord();
 //        List<User> users = new ArrayList<>();

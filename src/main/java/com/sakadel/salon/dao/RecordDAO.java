@@ -22,6 +22,8 @@ public class RecordDAO {
     private static String findAllByDateQuery;
     private static String updateTimeQuery;
     private static String findAllByUserQuery;
+    private static String findRecordsWithLimit;
+    private static String getCountRecords;
 
     private  RecordDAO() {
         try {
@@ -40,6 +42,8 @@ public class RecordDAO {
         findAllByDateQuery = properties.getProperty("findTimes");
         updateTimeQuery = properties.getProperty("updateTime");
         findAllByUserQuery = properties.getProperty("findRecordByUserId");
+        findRecordsWithLimit = properties.getProperty("findRecordsWithLimit");
+        getCountRecords = properties.getProperty("getCountRecords");
     }
 
     public static RecordDAO getInstance(){
@@ -75,6 +79,53 @@ public class RecordDAO {
             LOGGER.error("Error to add to data base" + Arrays.toString(e.getStackTrace()));
         }
         return record;
+    }
+
+    public int getCountRecords() {
+        LOGGER.info("Getting records with limit");
+
+
+        //try(Connection connection = connectionPool.getConnection()) {
+        try (PreparedStatement statement = connection.prepareStatement(getCountRecords)) {
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                return result.getInt("count");
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            return 0;
+        }
+        return 0;
+
+
+    }
+
+    public List<Record> findRecordsWithLimit(int offset, int limit) {
+        LOGGER.info("Getting records with limit");
+        List<Record> listRecords = new ArrayList<>();
+
+
+        //try(Connection connection = connectionPool.getConnection()) {
+        try(PreparedStatement statement = connection.prepareStatement(findRecordsWithLimit)){
+            statement.setInt(1, offset);
+            statement.setInt(2, limit);
+            ResultSet result = statement.executeQuery();
+
+            while(result.next()) {
+                Record record = new Record();
+                record.setId(result.getLong("id"));
+                record.setUser_id(result.getLong("user_id"));
+                record.setMaster_has_service_id(result.getLong("master_has_service_id"));
+                record.setStatus_id(result.getLong("status_id"));
+                record.setTime(result.getString("time"));
+
+                listRecords.add(record);
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        }
+
+        return listRecords;
     }
 
     public List<Record> findAllRecords() {
