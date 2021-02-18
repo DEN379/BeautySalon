@@ -25,7 +25,13 @@
             <input type="submit" value="Pay">
         </form>
         </c:if>
-<%--        <a href="${pageContext.request.contextPath}/myOrders/paid?id=${record.id}">Pay</a>--%>
+        <c:if test="${record.status_id == 4}">
+<%--            <form action="${pageContext.request.contextPath}/order/comment?id=${record.id}" method="get">--%>
+<%--                <input type="submit" value="Leave a comment">--%>
+<%--            </form>--%>
+            <a href="${pageContext.request.contextPath}/order/comment?id=${record.id}">Leave a comment</a>
+        </c:if>
+
         <hr>
     </div>
 </c:forEach>

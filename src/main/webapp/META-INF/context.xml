@@ -1,0 +1,16 @@
+<Context>
+    <Resource name="jdbc/salon"
+              auth="Container"
+              type="javax.sql.DataSource"
+              factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+              validationQuery="SELECT 1"
+              validationInterval="30000"
+              username="root"
+              password="den379"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/beauty_salon?characterEncoding=utf8"
+              removeAbandoned="true"
+              removeAbandonedTimeout="30"
+              maxActive="15"
+              maxIdle="3"/>
+</Context>

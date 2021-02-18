@@ -1,5 +1,6 @@
 package com.sakadel.salon.dao;
 
+import com.sakadel.salon.connection.ConnectionPool;
 import com.sakadel.salon.entity.Record;
 import com.sakadel.salon.entity.ServiceMaster;
 import com.sakadel.salon.service.ServiceMasterService;
@@ -14,7 +15,8 @@ import java.util.List;
 public class ServiceMasterDAO {
     private static final Logger LOGGER = Logger.getLogger(ServiceMasterDAO.class);
     private static ServiceMasterDAO INSTANCE;
-    private static Connection connection;
+    //private static Connection connection;
+    private static ConnectionPool connectionPool;
 
 
     private static String createQuery;
@@ -24,13 +26,14 @@ public class ServiceMasterDAO {
     private static String findByMasterAndServiceIdQuery;
 
     private  ServiceMasterDAO() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
-        } catch (SQLException | ClassNotFoundException e) {
-            LOGGER.error("Can't connect to the Data Base", e);
-        }
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            connection = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
+//        } catch (SQLException | ClassNotFoundException e) {
+//            LOGGER.error("Can't connect to the Data Base", e);
+//        }
+        connectionPool = ConnectionPool.getInstance();
 
         ParseSqlProperties properties = ParseSqlProperties.getInstance();
         createQuery = properties.getProperty("createServiceMaster");
@@ -49,8 +52,8 @@ public class ServiceMasterDAO {
 
     public ServiceMaster createServiceMaster(ServiceMaster masterService){
         LOGGER.info("Creating service");
-
-        try (PreparedStatement statement = connection.prepareStatement(createQuery, Statement.RETURN_GENERATED_KEYS)) {
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(createQuery, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, masterService.getMaster_id());
             statement.setLong(2, masterService.getService_id());
             statement.setBigDecimal(3, masterService.getPrice());
@@ -95,8 +98,8 @@ public class ServiceMasterDAO {
     public List<ServiceMaster> findMasterByService(Long id) {
         LOGGER.info("Getting masters by service id " + id);
         List<ServiceMaster> listMasters = new ArrayList<>();
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findByService)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findByService)){
             statement.setLong(1, id);
 
             ResultSet result = statement.executeQuery();
@@ -118,8 +121,8 @@ public class ServiceMasterDAO {
     public ServiceMaster findServiceMaster(Long id) {
         LOGGER.info("Getting service-master by id " + id);
         ServiceMaster serviceMaster = null;
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findByIdQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findByIdQuery)){
             statement.setLong(1, id);
 
             ResultSet result = statement.executeQuery();
@@ -135,8 +138,8 @@ public class ServiceMasterDAO {
     public ServiceMaster findServiceMasterByMasterAndService(Long master_id, Long service_id) {
         LOGGER.info("Getting service-master by master id "+master_id+"and service id " + service_id);
         ServiceMaster sm = null;
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findByMasterAndServiceIdQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findByMasterAndServiceIdQuery)){
             statement.setLong(1, master_id);
             statement.setLong(2, service_id);
 
@@ -157,8 +160,8 @@ public class ServiceMasterDAO {
     public List<ServiceMaster> findServiceMasterByMaster(Long id) {
         LOGGER.info("Getting service-master by master id " + id);
         List<ServiceMaster> serviceMaster = new ArrayList<>();
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findByMasterIdQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findByMasterIdQuery)){
             statement.setLong(1, id);
 
             ResultSet result = statement.executeQuery();

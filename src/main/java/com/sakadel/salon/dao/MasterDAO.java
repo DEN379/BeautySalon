@@ -1,36 +1,37 @@
 package com.sakadel.salon.dao;
 
+import com.sakadel.salon.connection.ConnectionPool;
 import com.sakadel.salon.entity.Master;
 import com.sakadel.salon.entity.Role;
-import com.sakadel.salon.entity.Service;
 import com.sakadel.salon.entity.User;
 import com.sakadel.salon.utility.ParseSqlProperties;
 import org.apache.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.*;
 
 public class MasterDAO {
     private static final Logger LOGGER = Logger.getLogger(MasterDAO.class);
     private static MasterDAO INSTANCE;
-    private static Connection connection;
-
+    //private static Connection connection;
+    private static ConnectionPool connectionPool;
 
     private static String updateQuery;
     private static String findByIdQuery;
     private static String findAllQuery;
     private static String findMasterByName;
     private static String findByUserIdQuery;
+    private static String updateRate;
 
     private  MasterDAO() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
-        } catch (SQLException | ClassNotFoundException e) {
-            LOGGER.error("Can't connect to the Data Base", e);
-        }
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            connection = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
+//        } catch (SQLException | ClassNotFoundException e) {
+//            LOGGER.error("Can't connect to the Data Base", e);
+//        }
+        connectionPool = ConnectionPool.getInstance();
 
         ParseSqlProperties properties = ParseSqlProperties.getInstance();
         updateQuery = properties.getProperty("createMaster");
@@ -38,6 +39,7 @@ public class MasterDAO {
         findAllQuery = properties.getProperty("findAllMastersWithName");
         findMasterByName = properties.getProperty("findMasterByName");
         findByUserIdQuery = properties.getProperty("findMasterByUserId");
+        updateRate = properties.getProperty("updateRate");
     }
 
     public static MasterDAO getInstance(){
@@ -50,7 +52,8 @@ public class MasterDAO {
     public Master setMaster(Long id){
         LOGGER.info("Creating master");
         Master master = new Master();
-        try (PreparedStatement statement = connection.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS)) {
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, Role.MASTER.value());
             int resQuery = statement.executeUpdate();
             if(resQuery == 0){
@@ -78,8 +81,8 @@ public class MasterDAO {
     public List<Master> findAllWithName() {
         LOGGER.info("Getting all masters with name");
         List<Master> listMasters = new ArrayList<>();
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findAllQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findAllQuery)){
             ResultSet result = statement.executeQuery();
 
             while(result.next()) {
@@ -114,8 +117,8 @@ public class MasterDAO {
         if(isDescending) sql += " DESC";
 
 
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql)){
             ResultSet result = statement.executeQuery();
 
             while(result.next()) {
@@ -141,8 +144,8 @@ public class MasterDAO {
         LOGGER.info("Getting master with name by id " + id);
         Master master = null;
 
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findMasterByName)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findMasterByName)){
             statement.setLong(1, id);
             ResultSet result = statement.executeQuery();
             master = new Master();
@@ -168,8 +171,8 @@ public class MasterDAO {
         LOGGER.info("Getting all masters");
         List<Master> listMasters = new ArrayList<>();
 
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findAllQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findAllQuery)){
             ResultSet result = statement.executeQuery();
 
             while(result.next()) {
@@ -188,11 +191,29 @@ public class MasterDAO {
     }
 
 
+    public boolean updateMasterRate(Long id, float rate){
+        LOGGER.info("Updating master" + id +" rate" + rate);
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(updateRate)){
+            statement.setFloat(1, rate);
+            statement.setLong(2, id);
+
+            int res = statement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
     public Master findMasterByUserId(Long id){
         LOGGER.info("Getting master by user id " + id);
         Master master = null;
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findByUserIdQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findByUserIdQuery)){
             statement.setLong(1, id);
 
             ResultSet result = statement.executeQuery();
@@ -212,8 +233,8 @@ public class MasterDAO {
     public Master findMasterById(Long id){
         LOGGER.info("Getting master by id " + id);
         Master master = null;
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findByIdQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findByIdQuery)){
             statement.setLong(1, id);
 
             ResultSet result = statement.executeQuery();

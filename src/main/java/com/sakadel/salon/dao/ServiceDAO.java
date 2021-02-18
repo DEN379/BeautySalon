@@ -1,5 +1,6 @@
 package com.sakadel.salon.dao;
 
+import com.sakadel.salon.connection.ConnectionPool;
 import com.sakadel.salon.entity.Role;
 import com.sakadel.salon.entity.Service;
 import com.sakadel.salon.entity.User;
@@ -16,6 +17,7 @@ public class ServiceDAO {
     private static final Logger LOGGER = Logger.getLogger(ServiceDAO.class);
     private static ServiceDAO INSTANCE;
     private static Connection connection;
+    private static ConnectionPool connectionPool;
 
 
     private static String createQuery;
@@ -23,13 +25,14 @@ public class ServiceDAO {
     private static String findAllQuery;
 
     private  ServiceDAO() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
-        } catch (SQLException | ClassNotFoundException e) {
-            LOGGER.error("Can't connect to the Data Base", e);
-        }
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            connection = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
+//        } catch (SQLException | ClassNotFoundException e) {
+//            LOGGER.error("Can't connect to the Data Base", e);
+//        }
+        connectionPool = ConnectionPool.getInstance();
 
         ParseSqlProperties properties = ParseSqlProperties.getInstance();
         createQuery = properties.getProperty("createService");
@@ -47,8 +50,8 @@ public class ServiceDAO {
 
     public Service createService(Service service){
         LOGGER.info("Creating service");
-
-        try (PreparedStatement statement = connection.prepareStatement(createQuery, Statement.RETURN_GENERATED_KEYS)) {
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(createQuery, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, service.getName());
             statement.setString(2, service.getDescription());
             int resQuery = statement.executeUpdate();
@@ -75,8 +78,8 @@ public class ServiceDAO {
         LOGGER.info("Getting all services");
         List<Service> listService = new ArrayList<>();
 
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findAllQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findAllQuery)){
             ResultSet result = statement.executeQuery();
 
             while(result.next()) {
@@ -97,8 +100,8 @@ public class ServiceDAO {
     public Service findService(Long id) {
         LOGGER.info("Getting service by id " + id);
         Service service = null;
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findByIdQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findByIdQuery)){
             statement.setLong(1, id);
 
             ResultSet result = statement.executeQuery();

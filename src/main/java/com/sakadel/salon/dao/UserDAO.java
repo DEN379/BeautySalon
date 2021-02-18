@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.sakadel.salon.connection.ConnectionPool;
 import com.sakadel.salon.entity.Role;
 import com.sakadel.salon.entity.Service;
 import com.sakadel.salon.entity.User;
@@ -15,7 +16,8 @@ import org.apache.log4j.Logger;
 public class UserDAO {
     private static final Logger LOGGER = Logger.getLogger(UserDAO.class);
     private static UserDAO INSTANCE;
-    private static Connection connection;
+    //private static Connection connection;
+    private static ConnectionPool connectionPool;
 
     private static String createQuery;
     private static String updateQuery;
@@ -26,13 +28,14 @@ public class UserDAO {
     private static String findAllQuery;
 
     private  UserDAO(){
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
-        } catch (SQLException | ClassNotFoundException e) {
-            LOGGER.error("Can't connect to the Data Base", e);
-        }
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            connection = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
+//        } catch (SQLException | ClassNotFoundException e) {
+//            LOGGER.error("Can't connect to the Data Base", e);
+//        }
+        connectionPool = ConnectionPool.getInstance();
 
         ParseSqlProperties properties = ParseSqlProperties.getInstance();
         createQuery = properties.getProperty("createUser");
@@ -54,8 +57,8 @@ public class UserDAO {
     public User createUser(User user){
         LOGGER.info("Creating user");
         String sql = "INSERT INTO `user` (first_name, last_name, email, password, role_id) VALUES (?,?,?,?,?);";
-
-        try (PreparedStatement statement = connection.prepareStatement(createQuery, Statement.RETURN_GENERATED_KEYS)) {
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(createQuery, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
             statement.setString(3, user.getEmail());
@@ -85,8 +88,8 @@ public class UserDAO {
         LOGGER.info("Getting all users by limit " + limit + " with offset "+offset);
         List<User> users = new ArrayList<>();
         //String findByEmailAndPasswordQuery = "SELECT * FROM `user` WHERE email = ? AND password = ?";
-        //try(Connection connection = connectionPool.getConnection()) {
-        try (PreparedStatement statement = connection.prepareStatement(findAllQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findAllQuery)){
             statement.setInt(1, offset);
             statement.setInt(2, limit);
 
@@ -113,8 +116,8 @@ public class UserDAO {
         LOGGER.info("Getting user with email " + email);
         User user = null;
         //String findByEmailAndPasswordQuery = "SELECT * FROM `user` WHERE email = ? AND password = ?";
-        //try(Connection connection = connectionPool.getConnection()) {
-        try (PreparedStatement statement = connection.prepareStatement(findByEmailAndPasswordQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findByEmailAndPasswordQuery)){
             statement.setString(1, email);
             statement.setString(2, password);
 
@@ -132,8 +135,8 @@ public class UserDAO {
         LOGGER.info("Getting user with email " + email);
         User user = null;
         //String findByEmailQuery = "SELECT * FROM `user` WHERE email = ?";
-        //try(Connection connection = connectionPool.getConnection()) {
-           try(PreparedStatement statement = connection.prepareStatement(findByEmailQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findByEmailQuery)){
             statement.setString(1, email);
 
             ResultSet result = statement.executeQuery();
@@ -149,8 +152,8 @@ public class UserDAO {
         LOGGER.info("Getting user with id " + id);
         User user = null;
         //String findByIdQuery = "SELECT * FROM `user` WHERE id = ?";
-        //try(Connection connection = connectionPool.getConnection()) {
-            try(PreparedStatement statement = connection.prepareStatement(findByIdQuery)){
+        try(Connection connection = connectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(findByIdQuery)){
             statement.setLong(1, id);
 
             ResultSet result = statement.executeQuery();

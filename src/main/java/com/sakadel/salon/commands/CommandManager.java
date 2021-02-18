@@ -31,6 +31,7 @@ public class CommandManager {
         getCommands.put("/order", new OrderPageCommand());
         getCommands.put("/order/masters", new GetMastersCommand());
         getCommands.put("/order/time", new GetTimeCommand());
+        getCommands.put("/order/comment", new CommentPageCommand());
 
         getCommands.put("/filterServices", new FilterServiceByMasterCommand());
         getCommands.put("/filterMasters", new FilterMasterByServiceCommand());
@@ -50,6 +51,7 @@ public class CommandManager {
         postCommands.put("/logout", new LogoutCommand());
         postCommands.put("/register", new RegisterCommand());
         postCommands.put("/order", new OrderCommand());
+        postCommands.put("/order/comment", new CommentCommand());
 
         postCommands.put("/timeTable/updateStatus", new UpdateStatusCommand());
         postCommands.put("/myOrders/paid", new UpdateStatusPaidCommand());

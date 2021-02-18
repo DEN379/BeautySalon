@@ -56,4 +56,8 @@ public class MasterService {
         }
         return masterDAO.findMasterByUserId(id);
     }
+    public boolean updateMasterRate(Long id, float rate){
+        LOGGER.info("Updating master rate" + id);
+        return masterDAO.updateMasterRate(id, rate);
+    }
 }

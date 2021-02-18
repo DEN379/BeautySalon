@@ -46,6 +46,11 @@ public class RecordService {
 
         return recordDAO.getCountRecords();
     }
+    public float getAvgRecords(List<Long> ms){
+        LOGGER.info("Getting avg of mark");
+
+        return recordDAO.getAvgRecords(ms);
+    }
     public List<Record> findAllRecordsByUserId(Long id){
         LOGGER.info("Finding all records by user id " + id);
 
@@ -66,6 +71,11 @@ public class RecordService {
         LOGGER.info("Update time");
 
         return recordDAO.updateTime(id, date);
+    }
+    public boolean updateMark(Long id, int mark){
+        LOGGER.info("Update mark");
+
+        return recordDAO.updateMark(id, mark);
     }
 
 }

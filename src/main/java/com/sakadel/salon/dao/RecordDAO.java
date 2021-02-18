@@ -1,5 +1,6 @@
 package com.sakadel.salon.dao;
 
+import com.sakadel.salon.connection.ConnectionPool;
 import com.sakadel.salon.entity.*;
 import com.sakadel.salon.utility.ParseSqlProperties;
 import org.apache.log4j.Logger;
@@ -12,8 +13,8 @@ import java.util.List;
 public class RecordDAO {
     private static final Logger LOGGER = Logger.getLogger(RecordDAO.class);
     private static RecordDAO INSTANCE;
-    private static Connection connection;
-
+    //private static Connection connection;
+    private static ConnectionPool connectionPool;
 
     private static String createQuery;
     private static String findByIdQuery;
@@ -24,15 +25,18 @@ public class RecordDAO {
     private static String findAllByUserQuery;
     private static String findRecordsWithLimit;
     private static String getCountRecords;
+    private static String getAvgMark;
+    private static String updateMark;
 
     private  RecordDAO() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
-        } catch (SQLException | ClassNotFoundException e) {
-            LOGGER.error("Can't connect to the Data Base", e);
-        }
+//        try {
+//            Class.forName("com.mysql.jdbc.Driver");
+//            connection = DriverManager.getConnection(
+//                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
+//        } catch (SQLException | ClassNotFoundException e) {
+//            LOGGER.error("Can't connect to the Data Base", e);
+//        }
+        connectionPool = ConnectionPool.getInstance();
 
         ParseSqlProperties properties = ParseSqlProperties.getInstance();
         createQuery = properties.getProperty("createRecord");
@@ -44,6 +48,8 @@ public class RecordDAO {
         findAllByUserQuery = properties.getProperty("findRecordByUserId");
         findRecordsWithLimit = properties.getProperty("findRecordsWithLimit");
         getCountRecords = properties.getProperty("getCountRecords");
+        getAvgMark = properties.getProperty("getAvgMark");
+        updateMark = properties.getProperty("updateMark");
     }
 
     public static RecordDAO getInstance(){
@@ -55,8 +61,8 @@ public class RecordDAO {
 
     public Record createRecord(Record record){
         LOGGER.info("Creating record");
-
-        try (PreparedStatement statement = connection.prepareStatement(createQuery, Statement.RETURN_GENERATED_KEYS)) {
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(createQuery, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, record.getUser_id());
             statement.setLong(2, record.getMaster_has_service_id());
             statement.setLong(3, record.getStatus_id());
@@ -81,12 +87,38 @@ public class RecordDAO {
         return record;
     }
 
-    public int getCountRecords() {
+
+    public float getAvgRecords(List<Long> masterService) {
         LOGGER.info("Getting records with limit");
 
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i < masterService.size(); i++){
+            sb.append(" OR master_has_service_id=").append(masterService.get(i));
+        }
 
-        //try(Connection connection = connectionPool.getConnection()) {
-        try (PreparedStatement statement = connection.prepareStatement(getCountRecords)) {
+        LOGGER.info("SSSSSSSSSSSSSSSSS "+getAvgMark+sb.toString()+"...");
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(getAvgMark+sb.toString())) {
+            statement.setLong(1, masterService.get(1));
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                return result.getInt("avg");
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            return 0;
+        }
+        return 0;
+
+
+    }
+
+    public int getCountRecords() {
+        LOGGER.info("Getting count records");
+
+
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(getCountRecords)) {
             ResultSet result = statement.executeQuery();
             if(result.next()){
                 return result.getInt("count");
@@ -105,8 +137,8 @@ public class RecordDAO {
         List<Record> listRecords = new ArrayList<>();
 
 
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findRecordsWithLimit)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findRecordsWithLimit)){
             statement.setInt(1, offset);
             statement.setInt(2, limit);
             ResultSet result = statement.executeQuery();
@@ -133,8 +165,8 @@ public class RecordDAO {
         List<Record> listRecords = new ArrayList<>();
 
 
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findAllQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findAllQuery)){
             ResultSet result = statement.executeQuery();
 
             while(result.next()) {
@@ -162,8 +194,8 @@ public class RecordDAO {
         if(isReady)
         findAllByDateQuery += sql;
 
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findAllByDateQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findAllByDateQuery)){
             statement.setLong(1, id);
             statement.setString(2, date+"%");
             ResultSet result = statement.executeQuery();
@@ -190,10 +222,27 @@ public class RecordDAO {
     }
 
 
+    public Boolean updateMark(Long id, int mark) {
+        LOGGER.info("Update mark " + id + " to " + mark);
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(updateMark)){
+            statement.setInt(1, mark);
+            statement.setLong(2, id);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+
     public Boolean updateStatus(Long id, Status status) {
         LOGGER.info("Update status " + id + " to " + status.value());
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(updateQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(updateQuery)){
             statement.setLong(1, status.ordinal()+1);
             statement.setLong(2, id);
             statement.executeUpdate();
@@ -208,8 +257,8 @@ public class RecordDAO {
 
     public Boolean updateTime(Long id, String date) {
         LOGGER.info("Update record " + id + " time => " + date);
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(updateTimeQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(updateTimeQuery)){
             statement.setString(1, date);
             statement.setLong(2, id);
             statement.executeUpdate();
@@ -225,8 +274,8 @@ public class RecordDAO {
     public List<Record> findRecordsByUserId(Long id) {
         LOGGER.info("Getting service-master by user id " + id);
         List<Record> records = new ArrayList<>();
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findAllByUserQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findAllByUserQuery)){
             statement.setLong(1, id);
 
             ResultSet result = statement.executeQuery();
@@ -251,8 +300,8 @@ public class RecordDAO {
     public Record findRecord(Long id) {
         LOGGER.info("Getting service-master by id " + id);
         Record record = null;
-        //try(Connection connection = connectionPool.getConnection()) {
-        try(PreparedStatement statement = connection.prepareStatement(findByIdQuery)){
+        try(Connection connection = connectionPool.getConnection();
+        PreparedStatement statement = connection.prepareStatement(findByIdQuery)){
             statement.setLong(1, id);
 
             ResultSet result = statement.executeQuery();
