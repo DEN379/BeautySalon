@@ -30,6 +30,7 @@ public class Main extends HttpServlet {
         ServletCommand command = commandManager.getGetCommand(request);
         String page = command.execute(request, response);
         if(page != null)
+            if(!response.isCommitted())
         request.getRequestDispatcher(page).forward(request, response);
     }
 
@@ -50,10 +51,10 @@ public class Main extends HttpServlet {
             case "/WEB-INF/my-orders.jsp":
                 return "/salon/myOrders";
             case "/WEB-INF/time-table.jsp":
-                return "/salon/timeTable";
+                return "/salon/master/timeTable";
             case "/WEB-INF/records.jsp":
             case "/WEB-INF/item.jsp":
-                return "/salon/records";
+                return "/salon/admin/records";
             case "/WEB-INF/index.jsp":
             case "/WEB-INF/login.jsp":
             case "/WEB-INF/register.jsp":

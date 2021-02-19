@@ -113,7 +113,7 @@ public class RecordsPageCommand implements ServletCommand {
 
             sb.append(
                     "<li class=\"pager-item\"><a href=\"").append(request.getContextPath())
-                    .append("/records?page=").append(i+1).append("\" title=\"На страницу номер 2\">")
+                    .append("/admin/records?page=").append(i + 1).append("\" title=\"На страницу номер ").append(i).append("\">")
                     .append(i+1).append("</a></li>\n");
         }
         sb.append( "   </ul>");

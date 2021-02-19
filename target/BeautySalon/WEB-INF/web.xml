@@ -32,10 +32,40 @@
     <filter-name>EncodingFilter</filter-name>
     <filter-class>com.sakadel.salon.filter.EncodingFilter</filter-class>
   </filter>
-
   <filter-mapping>
     <filter-name>EncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>AdminFilter</filter-name>
+    <filter-class>com.sakadel.salon.filter.AdminFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AdminFilter</filter-name>
+    <url-pattern>/admin/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>MasterFilter</filter-name>
+    <filter-class>com.sakadel.salon.filter.MasterFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>MasterFilter</filter-name>
+    <url-pattern>/master/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>ClientFilter</filter-name>
+    <filter-class>com.sakadel.salon.filter.ClientFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ClientFilter</filter-name>
+    <url-pattern>/order/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>ClientFilter</filter-name>
+    <url-pattern>/myOrders/*</url-pattern>
   </filter-mapping>
 
 </web-app>

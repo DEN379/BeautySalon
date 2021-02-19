@@ -6,10 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.sakadel.salon.connection.ConnectionPool;
-import com.sakadel.salon.entity.Role;
-import com.sakadel.salon.entity.Service;
-import com.sakadel.salon.entity.User;
-import com.sakadel.salon.entity.UserBuilder;
+import com.sakadel.salon.entity.*;
 import com.sakadel.salon.utility.ParseSqlProperties;
 import org.apache.log4j.Logger;
 
@@ -26,6 +23,7 @@ public class UserDAO {
     private static String findByEmailQuery;
     private static String findByEmailAndPasswordQuery;
     private static String findAllQuery;
+    private static String updateUserToMaster;
 
     private  UserDAO(){
 //        try {
@@ -45,6 +43,7 @@ public class UserDAO {
         findByEmailQuery = properties.getProperty("findUserByEmail");
         findByEmailAndPasswordQuery = properties.getProperty("findUserByEmailAndPassword");
         findAllQuery = properties.getProperty("findAllUsers");
+        updateUserToMaster = properties.getProperty("updateUserToMaster");
     }
 
     public static UserDAO getInstance(){
@@ -129,6 +128,22 @@ public class UserDAO {
         }
 
         return user;
+    }
+
+    public Boolean updateRole(Long id, Role role) {
+        LOGGER.info("Update role " + id + " to " + role.value());
+        try(Connection connection = connectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(updateUserToMaster)){
+            statement.setLong(1, role.ordinal()+1);
+            statement.setLong(2, id);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            return false;
+        }
+
+        return true;
     }
 
     public User findUserByEmail(String email) {

@@ -41,11 +41,15 @@ public class CommandManager {
         getCommands.put("/myOrders", new MyOrdersPageCommand());
 
 
-        getCommands.put("/records", new RecordsPageCommand());
-        getCommands.put("/records/edit", new ItemPageCommand());
+        getCommands.put("/admin/records", new RecordsPageCommand());
+        getCommands.put("/admin/records/edit", new ItemPageCommand());
 
-        getCommands.put("/timeTable", new TimeTablePageCommand());
-        getCommands.put("/createService", new CreateServicePageCommand());
+        getCommands.put("/admin/users", new UsersPageCommand());
+        getCommands.put("/admin/users/edit", new UsersItemPageCommand());
+        getCommands.put("/admin/users/getService", new GetServicesCommand());
+
+        getCommands.put("/master/timeTable", new TimeTablePageCommand());
+        getCommands.put("/admin/createService", new CreateServicePageCommand());
 
         postCommands.put("/login", new LoginCommand());
         postCommands.put("/logout", new LogoutCommand());
@@ -53,13 +57,17 @@ public class CommandManager {
         postCommands.put("/order", new OrderCommand());
         postCommands.put("/order/comment", new CommentCommand());
 
-        postCommands.put("/timeTable/updateStatus", new UpdateStatusCommand());
+        postCommands.put("/master/timeTable/updateStatus", new UpdateStatusCommand());
         postCommands.put("/myOrders/paid", new UpdateStatusPaidCommand());
-        postCommands.put("/createService", new CreateServiceCommand());
+        postCommands.put("/admin/createService", new CreateServiceCommand());
 
-        postCommands.put("/records/cancel", new CancelStatusCommand());
-        postCommands.put("/records/accept", new AcceptedStatusCommand());
-        postCommands.put("/records/updateTime", new UpdateTimeCommand());
+        postCommands.put("/admin/users", new UsersPageCommand());
+        postCommands.put("/admin/users/setService", new UsersCommand());
+        postCommands.put("/admin/users/setMaster", new SetMasterRoleCommand());
+
+        postCommands.put("/admin/records/cancel", new CancelStatusCommand());
+        postCommands.put("/admin/records/accept", new AcceptedStatusCommand());
+        postCommands.put("/admin/records/updateTime", new UpdateTimeCommand());
 
 
 //        ParseProperties properties = ParseProperties.getInstance();

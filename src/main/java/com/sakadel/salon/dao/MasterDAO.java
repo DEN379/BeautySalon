@@ -54,7 +54,8 @@ public class MasterDAO {
         Master master = new Master();
         try(Connection connection = connectionPool.getConnection();
         PreparedStatement statement = connection.prepareStatement(updateQuery, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, Role.MASTER.value());
+            statement.setLong(1, id);
+            statement.setFloat(2, 0);
             int resQuery = statement.executeUpdate();
             if(resQuery == 0){
                 LOGGER.error("Creation master failed");

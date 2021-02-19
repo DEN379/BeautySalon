@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="navbar" tagdir="/WEB-INF/tags" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,6 +13,7 @@
     <title>Order</title>
 </head>
 <body>
+<navbar:navbar/>
 <form action="${pageContext.request.contextPath}/order" method="post" id="order">
     <select onchange="selectChange(this);" name="service-id" form="order" required>
         <option selected disabled>Select service to choose master</option>

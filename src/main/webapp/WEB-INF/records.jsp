@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="navbar" tagdir="/WEB-INF/tags" %>
 
 <!doctype html>
 <html lang="en">
@@ -14,6 +15,7 @@
     <title>Records</title>
 </head>
 <body>
+<navbar:navbar/>
 <div class="container">
 <table class="table table-hover">
     <thead>
@@ -38,7 +40,7 @@
                 <td><c:out value="${record.service.name}" /></td>
                 <td><c:out value="${record.status.value()}" /></td>
                 <td><c:out value="${record.time}" /></td>
-                <td><a href="${pageContext.request.contextPath}/records/edit?id=${record.id}">Details</a></td>
+                <td><a href="${pageContext.request.contextPath}/admin/records/edit?id=${record.id}">Details</a></td>
             </tr>
         </c:forEach>
     </tbody>

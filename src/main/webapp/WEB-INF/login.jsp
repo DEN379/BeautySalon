@@ -1,3 +1,4 @@
+<%@ taglib prefix="navbar" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,7 @@
 
 </head>
 <body>
+<navbar:navbar/>
 <div class="container">
     <form accept-charset="UTF-8" role="form" method="post" action="${pageContext.request.contextPath}/login">
         <fieldset>

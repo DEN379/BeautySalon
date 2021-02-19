@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="navbar" tagdir="/WEB-INF/tags" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,8 +15,9 @@
     <title>Time-table</title>
 </head>
 <body>
+<navbar:navbar/>
 <div class="container">
-<form action="${pageContext.request.contextPath}/timeTable" method="get">
+<form action="${pageContext.request.contextPath}/master/timeTable" method="get">
     <input type="date" name="date" required>
     <input type="submit">
 </form>
@@ -39,7 +42,7 @@
             <td><c:out value="${record.status.value()}" /></td>
             <td>
                 <c:if test="${record.status.value() == \"accepted\"}">
-                    <form action="${pageContext.request.contextPath}/timeTable/updateStatus?id=${record.id}" method="post">
+                    <form action="${pageContext.request.contextPath}/master/timeTable/updateStatus?id=${record.id}" method="post">
                         <input type="submit" value="Finished">
                     </form>
 <%--                <a href=">Finished</a>--%>

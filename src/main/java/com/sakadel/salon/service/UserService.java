@@ -74,6 +74,11 @@ public class UserService {
         return userDao.findUserById(id);
     }
 
+    public boolean updateRole(Long id, Role role){
+        LOGGER.info("Updating role "+id+" to "+ role.value());
+        return userDao.updateRole(id, role);
+    }
+
 //    public Page<User> getPageByUserType(Integer page, Integer size, Role role) {
 //        LOGGER.info("Getting page number " + page + ", of size " + size + ", for user type " + role.name());
 //

@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="navbar" tagdir="/WEB-INF/tags" %>
 
 <!doctype html>
 <html lang="en">
@@ -14,6 +15,7 @@
     <title>Order comment</title>
 </head>
 <body>
+<navbar:navbar/>
 <h2>Evaluate a service: ${record.service.name}, made by ${record.userMaster.firstName} ${record.userMaster.lastName} </h2>
 <form action="${pageContext.request.contextPath}/order/comment?id=${record.id}&master=${record.serviceMaster.master_id}"
       method="post" id="mark-form">

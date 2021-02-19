@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="navbar" tagdir="/WEB-INF/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,7 +13,7 @@
     <%--    <script defer src="script.js"></script>--%>
 </head>
 <body>
-
+<navbar:navbar/>
     <div class="record-table">
         <p class="record-id"><c:out value="${record.id}" /></p>
         <p><c:out value="${record.user.firstName}" /></p>
@@ -23,7 +23,7 @@
         <p><c:out value="${record.service.name}" /></p>
         <p class="status-id"><c:out value="${record.status.value()}" /></p>
 <%--        <p><c:out value="${record.time}" /></p>--%>
-        <form action="${pageContext.request.contextPath}/records/updateTime?id=${record.id}" method="post" id="time-form">
+        <form action="${pageContext.request.contextPath}/admin/records/updateTime?id=${record.id}" method="post" id="time-form">
             <select name="time" onchange="setButton();" required>
                 <option selected onload="load(this);" id="first-option" disabled>???</option>
                 <c:forEach items="${recTime}" var="time">
@@ -38,12 +38,12 @@
 
         </div>
         <c:if test="${record.status_id == 2}">
-            <form action="${pageContext.request.contextPath}/records/accept?id=${record.id}" method="post">
+            <form action="${pageContext.request.contextPath}/admin/records/accept?id=${record.id}" method="post">
                 <input type="submit" value="Accept payment">
             </form>
         </c:if>
         <c:if test="${record.status_id > 3}">
-        <form action="${pageContext.request.contextPath}/records/cancel?id=${record.id}" method="post">
+        <form action="${pageContext.request.contextPath}/admin/records/cancel?id=${record.id}" method="post">
             <input type="submit" onclick="alert('Do yo want to cancel a record?')" value="Cancel record">
         </form>
         </c:if>

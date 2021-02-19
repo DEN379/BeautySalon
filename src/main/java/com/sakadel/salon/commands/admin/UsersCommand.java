@@ -2,8 +2,8 @@ package com.sakadel.salon.commands.admin;
 
 import com.sakadel.salon.commands.ServletCommand;
 import com.sakadel.salon.dao.*;
-import com.sakadel.salon.entity.Record;
-import com.sakadel.salon.entity.User;
+import com.sakadel.salon.entity.Master;
+import com.sakadel.salon.entity.ServiceMaster;
 import com.sakadel.salon.service.*;
 import com.sakadel.salon.utility.ParsePathProperties;
 import org.apache.log4j.Logger;
@@ -11,11 +11,11 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.math.BigDecimal;
 
-public class UsersPageCommand implements ServletCommand {
+public class UsersCommand implements ServletCommand {
 
-    private static final Logger LOGGER = Logger.getLogger(UsersPageCommand.class);
+    private static final Logger LOGGER = Logger.getLogger(UsersCommand.class);
     private ServiceService service;
     private ServiceDAO serviceDAO;
     private MasterService master;
@@ -30,8 +30,8 @@ public class UsersPageCommand implements ServletCommand {
     private static String page;
 
 
-    public UsersPageCommand(){
-        LOGGER.info("Initializing UsersPageCommand");
+    public UsersCommand() {
+        LOGGER.info("Initializing UsersCommand");
 
         userDAO = UserDAO.getInstance();
         user = new UserService(userDAO);
@@ -44,38 +44,23 @@ public class UsersPageCommand implements ServletCommand {
         recordDAO = RecordDAO.getInstance();
         record = new RecordService(recordDAO);
         ParsePathProperties properties = ParsePathProperties.getInstance();
-        page = properties.getProperty("usersPage");
+        page = properties.getProperty("usersItemPage");
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
-        int pageNumb = 1;
-        if(request.getParameter("page") != null)
-            pageNumb = Integer.parseInt(request.getParameter("page"));
-        int count = record.getCountRecords();
-        LOGGER.info("counttttt " + count);
-        int limit = 2;
-        int numberPages = (int) Math.ceil((float)count / limit);
-        LOGGER.info("numberrrr pages"+numberPages);
+        long id = Integer.parseInt(request.getParameter("id"));
+        int price = Integer.parseInt(request.getParameter("price"));
+        long service_id = Integer.parseInt(request.getParameter("service-id"));
 
-        List<User> list = user.findAllUsers((pageNumb-1)*limit, limit);
+        Master mas = master.findMasterByUserId(id);
+        ServiceMaster sm = new ServiceMaster();
+        sm.setMaster_id(mas.getId());
+        sm.setService_id(service_id);
+        sm.setPrice(BigDecimal.valueOf(price));
 
-        request.setAttribute("users", list);
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("<ul type=\"none\" class=\"pager\">\n");
-        for(int i = 0; i < numberPages; i++){
-
-            sb.append(
-                    "<li class=\"pager-item\"><a href=\"").append(request.getContextPath())
-                    .append("/admin/users?page=").append(i + 1).append("\" title=\"На страницу номер ").append(i).append("\">")
-                    .append(i+1).append("</a></li>\n");
-        }
-        sb.append( "   </ul>");
-
-        request.setAttribute("pages",sb.toString());
+        serviceMaster.addServiceMaster(sm);
 
         return page;
     }
