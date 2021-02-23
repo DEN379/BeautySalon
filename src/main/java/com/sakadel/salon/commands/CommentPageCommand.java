@@ -26,7 +26,7 @@ public class CommentPageCommand implements ServletCommand {
     private UserDAO userDAO;
 
     private static String page;
-
+    private static String pageRe;
 
     public CommentPageCommand(){
         LOGGER.info("Initializing CommentPageCommand");
@@ -43,11 +43,13 @@ public class CommentPageCommand implements ServletCommand {
         record = new RecordService(recordDAO);
         ParsePathProperties properties = ParsePathProperties.getInstance();
         page = properties.getProperty("orderCommentPage");
+        pageRe = properties.getProperty("userRecordsPage");
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
+        if(request.getParameter("id") == null) return pageRe;
         long id = Integer.parseInt(request.getParameter("id"));
         Record rec = record.findRecord(id);
 

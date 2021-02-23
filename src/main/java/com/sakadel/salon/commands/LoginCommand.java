@@ -48,9 +48,6 @@ public class LoginCommand implements ServletCommand{
                 session.setAttribute("authenticated", true);
                 session.setAttribute("role", user.getRole().value());
 
-//                request.setAttribute("categories", categoryService.findAll());
-//                request.setAttribute("latestMagazines", magazineService.findLatestAdded(6));
-
                 resultPage = mainPage;
             }
             else {

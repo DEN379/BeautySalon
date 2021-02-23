@@ -33,6 +33,7 @@ public class ItemPageCommand implements ServletCommand {
     private UserDAO userDAO;
 
     private static String page;
+    private static String pageRe;
 
 
     public ItemPageCommand(){
@@ -50,13 +51,22 @@ public class ItemPageCommand implements ServletCommand {
         record = new RecordService(recordDAO);
         ParsePathProperties properties = ParsePathProperties.getInstance();
         page = properties.getProperty("recordItemPage");
+        pageRe = properties.getProperty("usersPage");
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
+        if(request.getParameter("id") == null){
+            return pageRe;
+        }
+
         long id = Integer.parseInt(request.getParameter("id"));
         Record rec = record.findRecord(id);
+
+        if (rec == null || rec.getId() == null) {
+            return pageRe;
+        }
 
         User userName = user.findUserById(rec.getUser_id());
         ServiceMaster sm = serviceMaster.findServiceMasterById(rec.getMaster_has_service_id());

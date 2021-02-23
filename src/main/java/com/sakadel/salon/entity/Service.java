@@ -4,6 +4,9 @@ public class Service {
     private Long id;
     private String name;
     private String description;
+    private String nameUkr;
+    private String descriptionUkr;
+
     public Service(){
     }
     public Service(String name, String description) {
@@ -38,5 +41,21 @@ public class Service {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getNameUkr() {
+        return nameUkr;
+    }
+
+    public void setNameUkr(String nameUkr) {
+        this.nameUkr = nameUkr;
+    }
+
+    public String getDescriptionUkr() {
+        return descriptionUkr;
+    }
+
+    public void setDescriptionUkr(String descriptionUkr) {
+        this.descriptionUkr = descriptionUkr;
     }
 }

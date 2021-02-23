@@ -79,6 +79,11 @@ public class UserService {
         return userDao.updateRole(id, role);
     }
 
+    public int getCountUsers(){
+        LOGGER.info("Getting count of users");
+
+        return userDao.getCountUsers();
+    }
 //    public Page<User> getPageByUserType(Integer page, Integer size, Role role) {
 //        LOGGER.info("Getting page number " + page + ", of size " + size + ", for user type " + role.name());
 //

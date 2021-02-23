@@ -40,6 +40,18 @@ public class MainPageCommand implements ServletCommand {
         request.setAttribute("services", service.findAll());
         request.setAttribute("masters", master.findAllWithName());
 
+        if(request.getParameter("locale") != null) {
+            String locale = request.getParameter("locale");
+            switch (locale) {
+                case "en":
+                    request.getSession().setAttribute("locale", "en");
+                    break;
+                case "ua":
+                    request.getSession().setAttribute("locale", "ua");
+                    break;
+            }
+        }
+
         return page;
     }
 }

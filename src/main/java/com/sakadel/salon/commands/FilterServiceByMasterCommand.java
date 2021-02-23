@@ -52,6 +52,7 @@ public class FilterServiceByMasterCommand implements ServletCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
+        if(request.getParameter("id") == null) return page;
         long master_id = Integer.parseInt(request.getParameter("id"));
 
         List<Service> serviceList = new ArrayList<>();
@@ -76,8 +77,8 @@ public class FilterServiceByMasterCommand implements ServletCommand {
 
         LOGGER.info("after writer");
         for(Service s : serviceList){
-            sb.append("<div>\n" +
-                    "            <p>").append(s.getName()).append("</p>\n" +
+            sb.append("<div class=\"service\">\n" +
+                    "            <h1>").append(s.getName()).append("</h1>\n" +
                     "            <p>").append(s.getDescription()).append("</p>\n" +
                     "        </div>");
         }

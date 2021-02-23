@@ -48,6 +48,7 @@ public class UpdateStatusPaidCommand implements ServletCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
+        if(request.getParameter("id") == null) return page;
         long id = Integer.parseInt(request.getParameter("id"));
         record.updateStatus(id, Status.PAID);
         return page;

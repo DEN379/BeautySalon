@@ -10,19 +10,31 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Record</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <%--    <script defer src="script.js"></script>--%>
+    <c:if test="${sessionScope.locale == null}">
+        <fmt:setLocale value="ua"/>
+    </c:if>
+    <c:if test="${sessionScope.locale != null}">
+        <fmt:setLocale value="${sessionScope.locale}"/>
+    </c:if>
+
+    <fmt:setBundle basename="localization" var="bundle"/>
 </head>
 <body>
 <navbar:navbar/>
+<div class="container">
     <div class="record-table">
-        <p class="record-id"><c:out value="${record.id}" /></p>
-        <p><c:out value="${record.user.firstName}" /></p>
-        <p><c:out value="${record.user.lastName}" /></p>
-        <p><c:out value="${record.userMaster.firstName}" /></p>
-        <p><c:out value="${record.userMaster.lastName}" /></p>
-        <p><c:out value="${record.service.name}" /></p>
-        <p class="status-id"><c:out value="${record.status.value()}" /></p>
-<%--        <p><c:out value="${record.time}" /></p>--%>
+
+        <p class="record-id"><fmt:message key="id" bundle="${bundle}"/>:    <c:out value="${record.id}" /></p>
+        <p><fmt:message key="user" bundle="${bundle}"/>:   <c:out value="${record.user.firstName}" />
+            <c:out value="${record.user.lastName}" /></p>
+        <p><fmt:message key="master" bundle="${bundle}"/>:      <c:out value="${record.userMaster.firstName}" />
+            <c:out value="${record.userMaster.lastName}" /></p>
+        <p><fmt:message key="service" bundle="${bundle}"/>:     <c:out value="${record.service.name}" /></p>
+        <p class="status-id"><fmt:message key="status" bundle="${bundle}"/>:    <c:out value="${record.status.value()}" /></p>
+
         <form action="${pageContext.request.contextPath}/admin/records/updateTime?id=${record.id}" method="post" id="time-form">
             <select name="time" onchange="setButton();" required>
                 <option selected onload="load(this);" id="first-option" disabled>???</option>
@@ -30,27 +42,27 @@
                     <option value="<c:out value="${time}" />"><c:out value="${time}" />:00</option>
                 </c:forEach>
             </select>
-            <input type="submit" value="Change time" id="time-button" style="display: none">
+            <input type="submit" value="<fmt:message key="changeTime" bundle="${bundle}"/>" id="time-button" style="display: none">
         </form>
 
-        <div id="time-accept">
+        <div id="time-accept"></div>
 
-
-        </div>
         <c:if test="${record.status_id == 2}">
             <form action="${pageContext.request.contextPath}/admin/records/accept?id=${record.id}" method="post">
-                <input type="submit" value="Accept payment">
+                <input type="submit" value="<fmt:message key="acceptPayment" bundle="${bundle}"/>">
             </form>
         </c:if>
-        <c:if test="${record.status_id > 3}">
-        <form action="${pageContext.request.contextPath}/admin/records/cancel?id=${record.id}" method="post">
-            <input type="submit" onclick="alert('Do yo want to cancel a record?')" value="Cancel record">
-        </form>
+
+        <c:if test="${record.status_id < 4}">
+            <form action="${pageContext.request.contextPath}/admin/records/cancel?id=${record.id}" method="post">
+                <input type="submit" onclick="alert('Do yo want to cancel a record?')"
+                       value="<fmt:message key="cancelRecord" bundle="${bundle}"/>">
+            </form>
         </c:if>
-<%--        <a href="${pageContext.request.contextPath}/records/cancel?id=${record.id}"--%>
-<%--           onclick="alert('Do yo want to cancel a record?')">Cancel record</a>--%>
+
         <hr>
     </div>
+</div>
     <script defer>
         document.addEventListener("DOMContentLoaded", load);
         function load() {
@@ -64,8 +76,6 @@
             f.innerHTML = "Current - "+str.substring(11,13)+":00";
         }
         function setButton() {
-            // var button = document.querySelector("#time-accept");
-            // button.innerHTML = "";
             var form = document.querySelector("#time-button");
             console.log(form);
             form.style.display = "block";

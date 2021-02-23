@@ -48,9 +48,10 @@ public class UpdateStatusCommand implements ServletCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
-        long id = Integer.parseInt(request.getParameter("id"));
-        record.updateStatus(id, Status.FINISHED);
-        //response.sendRedirect("http://localhost:8080/salon/timeTable");
+        if(request.getParameter("id") != null) {
+            long id = Integer.parseInt(request.getParameter("id"));
+            record.updateStatus(id, Status.FINISHED);
+        }
         return page;
     }
 

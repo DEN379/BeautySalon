@@ -48,20 +48,23 @@ public class UpdateTimeCommand implements ServletCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
-        long record_id = Integer.parseInt(request.getParameter("id"));
-        String hour = request.getParameter("time");
-        LOGGER.info("Hour " +hour);
 
-        String time;
-        if(hour.length() == 1) time = "0" + hour + ":00";
-        else time = hour + ":00";
-        LOGGER.info("time " +time);
-        Record rec = record.findRecord(record_id);
+        if(request.getParameter("id") != null && request.getParameter("time") != null) {
+            long record_id = Integer.parseInt(request.getParameter("id"));
+            String hour = request.getParameter("time");
+            LOGGER.info("Hour " + hour);
 
-        String date = rec.getTime().substring(0, 11) + time;
-        LOGGER.info("date " +date);
+            String time;
+            if (hour.length() == 1) time = "0" + hour + ":00";
+            else time = hour + ":00";
+            LOGGER.info("time " + time);
+            Record rec = record.findRecord(record_id);
 
-        record.updateTime(record_id, date);
+            String date = rec.getTime().substring(0, 11) + time;
+            LOGGER.info("date " + date);
+
+            record.updateTime(record_id, date);
+        }
 
 
         return page;

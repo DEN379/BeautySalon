@@ -34,10 +34,12 @@ public class CancelStatusCommand implements ServletCommand {
 
         String resultPage = recordsPage;
         LOGGER.info("PARAMETR "+ request.getParameter("id"));
-        long id = Integer.parseInt(request.getParameter("id"));
-        if(record.updateStatus(id, Status.CANCELED)){
-            return resultPage;
+        if(request.getParameter("id") != null) {
+            long id = Integer.parseInt(request.getParameter("id"));
+            if (record.updateStatus(id, Status.CANCELED)) {
+                return resultPage;
+            }
         }
-        else return recordsPage;
+        return recordsPage;
     }
 }

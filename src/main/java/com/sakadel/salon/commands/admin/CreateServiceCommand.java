@@ -50,11 +50,14 @@ public class CreateServiceCommand implements ServletCommand {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
-        String name = request.getParameter("name");
-        String desc = request.getParameter("desc");
+        if(request.getParameter("name") != null && request.getParameter("desc") != null) {
+            String name = request.getParameter("name");
+            String desc = request.getParameter("desc");
 
-        service.addService(new Service(name, desc));
+            service.addService(new Service(name, desc));
+            return page;
+        }
+        else return createServicePage;
 
-        return page;
     }
 }

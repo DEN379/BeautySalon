@@ -50,15 +50,15 @@ public class CreateServicePageCommand implements ServletCommand {
         LOGGER.info("Executing command");
 
         String resultPage = createServicePage;
-        if(request.getParameter("fname") == null && request.getParameter("lname") == null &&
-                request.getParameter("email") == null && request.getParameter("password") == null &&
-                request.getParameter("address") == null) {
-            LOGGER.info("Returning creation service page");
-            return resultPage;
-        }
+//        if(request.getParameter("fname") == null && request.getParameter("lname") == null &&
+//                request.getParameter("email") == null && request.getParameter("password") == null &&
+//                request.getParameter("address") == null) {
+//            LOGGER.info("Returning creation service page");
+//            return resultPage;
+//        }
 
 
-        resultPage = page;
+        //resultPage = page;
         return resultPage;
     }
 }

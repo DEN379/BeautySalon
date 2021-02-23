@@ -10,44 +10,53 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <c:if test="${sessionScope.locale == null}">
+        <fmt:setLocale value="ua"/>
+    </c:if>
+    <c:if test="${sessionScope.locale != null}">
+        <fmt:setLocale value="${sessionScope.locale}"/>
+    </c:if>
+    <fmt:setBundle basename="localization" var="bundle"/>
     <title>Records</title>
 </head>
 <body>
-<navbar:navbar/>
-<div class="container">
-<table class="table table-hover">
-    <thead>
-    <tr>
-        <th scope="col">Record id#</th>
-        <th scope="col">User name</th>
-        <th scope="col">Master name</th>
-        <th scope="col">Service</th>
-        <th scope="col">Status</th>
-        <th scope="col">Date and time</th>
-        <th scope="col"></th>
-    </tr>
-    </thead>
-    <tbody>
-        <c:forEach items="${records}" var="record">
+    <navbar:navbar/>
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
             <tr>
-                <th scope="row"><c:out value="${record.id}" /></th>
-                <td><c:out value="${record.user.firstName}" />
-                    <c:out value="${record.user.lastName}" /></td>
-                <td><c:out value="${record.userMaster.firstName}" />
-                    <c:out value="${record.userMaster.lastName}" /></td>
-                <td><c:out value="${record.service.name}" /></td>
-                <td><c:out value="${record.status.value()}" /></td>
-                <td><c:out value="${record.time}" /></td>
-                <td><a href="${pageContext.request.contextPath}/admin/records/edit?id=${record.id}">Details</a></td>
+                <th scope="col"><fmt:message key="id" bundle="${bundle}"/></th>
+                <th scope="col"><fmt:message key="user" bundle="${bundle}"/></th>
+                <th scope="col"><fmt:message key="master" bundle="${bundle}"/></th>
+                <th scope="col"><fmt:message key="service" bundle="${bundle}"/></th>
+                <th scope="col"><fmt:message key="status" bundle="${bundle}"/></th>
+                <th scope="col"><fmt:message key="date" bundle="${bundle}"/></th>
+                <th scope="col"></th>
             </tr>
-        </c:forEach>
-    </tbody>
-</table>
+            </thead>
+            <tbody>
+                <c:forEach items="${records}" var="record">
+                    <tr>
+                        <th scope="row"><c:out value="${record.id}" /></th>
+                        <td><c:out value="${record.user.firstName}" />
+                            <c:out value="${record.user.lastName}" /></td>
+                        <td><c:out value="${record.userMaster.firstName}" />
+                            <c:out value="${record.userMaster.lastName}" /></td>
+                        <td><c:out value="${record.service.name}" /></td>
+                        <td><c:out value="${record.status.value()}" /></td>
+                        <td><c:out value="${record.time}" /></td>
+                        <td><a href="${pageContext.request.contextPath}/admin/records/edit?id=${record.id}">
+                            <fmt:message key="details" bundle="${bundle}"/>
+                        </a></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
 
-    <div id="pages"><c:out value="${pages}" /></div>
-</div>
+        <div id="pages"><c:out value="${pages}" /></div>
+    </div>
 <script defer>
 
     document.addEventListener("DOMContentLoaded", load);

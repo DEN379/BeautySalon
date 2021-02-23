@@ -26,6 +26,7 @@ public class SetMasterRoleCommand implements ServletCommand {
     private UserDAO userDAO;
 
     private static String page;
+    private static String pageRe;
 
 
     public SetMasterRoleCommand() {
@@ -43,17 +44,20 @@ public class SetMasterRoleCommand implements ServletCommand {
         record = new RecordService(recordDAO);
         ParsePathProperties properties = ParsePathProperties.getInstance();
         page = properties.getProperty("usersItemPage");
+        pageRe = properties.getProperty("usersPage");
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
-        LOGGER.info("user_id  "+request.getParameter("id"));
-        long user_id = Long.parseLong(request.getParameter("id"));
+        if(request.getParameter("id") != null) {
+            LOGGER.info("user_id  " + request.getParameter("id"));
+            long user_id = Long.parseLong(request.getParameter("id"));
 
-        user.updateRole(user_id, Role.MASTER);
+            user.updateRole(user_id, Role.MASTER);
 
-        master.addMaster(user_id);
+            master.addMaster(user_id);
+        }else return pageRe;
 
 
         return page;

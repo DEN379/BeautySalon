@@ -33,10 +33,12 @@ public class AcceptedStatusCommand implements ServletCommand {
 
         String resultPage = recordsPage;
         LOGGER.info("PARAMETR "+ request.getParameter("id"));
-        long id = Integer.parseInt(request.getParameter("id"));
-        if(record.updateStatus(id, Status.ACCEPTED)){
-            return resultPage;
+        if(request.getParameter("id") != null) {
+            long id = Integer.parseInt(request.getParameter("id"));
+            if (record.updateStatus(id, Status.ACCEPTED)) {
+                return resultPage;
+            }
         }
-        else return recordsPage;
+        return recordsPage;
     }
 }

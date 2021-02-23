@@ -108,12 +108,12 @@ public class RecordsPageCommand implements ServletCommand {
         //PrintWriter out = response.getWriter();
         StringBuilder sb = new StringBuilder();
 
-        sb.append("<ul type=\"none\" class=\"pager\">\n");
+        sb.append("<ul type=\"none\" class=\"pagination\">\n");
         for(int i = 0; i < numberPages; i++){
 
             sb.append(
-                    "<li class=\"pager-item\"><a href=\"").append(request.getContextPath())
-                    .append("/admin/records?page=").append(i + 1).append("\" title=\"На страницу номер ").append(i).append("\">")
+                    "<li class=\"page-item\"><a class=\"page-link\" href=\"").append(request.getContextPath())
+                    .append("/admin/records?page=").append(i + 1).append("\" title=\"На страницу номер ").append(i+1).append("\">")
                     .append(i+1).append("</a></li>\n");
         }
         sb.append( "   </ul>");

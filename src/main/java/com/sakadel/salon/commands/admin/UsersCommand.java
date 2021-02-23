@@ -28,7 +28,7 @@ public class UsersCommand implements ServletCommand {
     private UserDAO userDAO;
 
     private static String page;
-
+    private static String pageRe;
 
     public UsersCommand() {
         LOGGER.info("Initializing UsersCommand");
@@ -45,11 +45,16 @@ public class UsersCommand implements ServletCommand {
         record = new RecordService(recordDAO);
         ParsePathProperties properties = ParsePathProperties.getInstance();
         page = properties.getProperty("usersItemPage");
+        pageRe = properties.getProperty("usersPage");
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
+        if(request.getParameter("id") == null || request.getParameter("price") == null
+                || request.getParameter("service-id") == null){
+            return pageRe;
+        }
         long id = Integer.parseInt(request.getParameter("id"));
         int price = Integer.parseInt(request.getParameter("price"));
         long service_id = Integer.parseInt(request.getParameter("service-id"));

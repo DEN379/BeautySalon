@@ -84,8 +84,8 @@ public class OrderByNameCommand implements ServletCommand {
 
         LOGGER.info("after writer");
         for(Master m : masterList){
-            sb.append("<div>\n" +
-                    "            <p>").append(m.getUser().getFirstName()+" ").append(m.getUser().getLastName()).append("</p>\n" +
+            sb.append("<div class=\"master\">\n" +
+                    "            <h4>").append(m.getUser().getFirstName()+" ").append(m.getUser().getLastName()).append("</h4>\n" +
                     "            <p>").append(m.getMark()).append("</p>\n" +
                     "        </div>");
         }

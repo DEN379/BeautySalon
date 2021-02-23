@@ -53,7 +53,7 @@ public class UsersPageCommand implements ServletCommand {
         int pageNumb = 1;
         if(request.getParameter("page") != null)
             pageNumb = Integer.parseInt(request.getParameter("page"));
-        int count = record.getCountRecords();
+        int count = user.getCountUsers();
         LOGGER.info("counttttt " + count);
         int limit = 2;
         int numberPages = (int) Math.ceil((float)count / limit);
@@ -65,12 +65,12 @@ public class UsersPageCommand implements ServletCommand {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("<ul type=\"none\" class=\"pager\">\n");
+        sb.append("<ul type=\"none\" class=\"pagination\">\n");
         for(int i = 0; i < numberPages; i++){
 
             sb.append(
-                    "<li class=\"pager-item\"><a href=\"").append(request.getContextPath())
-                    .append("/admin/users?page=").append(i + 1).append("\" title=\"На страницу номер ").append(i).append("\">")
+                    "<li class=\"page-item\"><a class=\"page-link\" href=\"").append(request.getContextPath())
+                    .append("/admin/users?page=").append(i + 1).append("\" title=\"На страницу номер ").append(i+1).append("\">")
                     .append(i+1).append("</a></li>\n");
         }
         sb.append( "   </ul>");

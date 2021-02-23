@@ -28,7 +28,7 @@ public class GetMastersCommand implements ServletCommand {
     private UserDAO userDAO;
 
     private static String page;
-
+    private static String pageRe;
 
     public GetMastersCommand(){
         LOGGER.info("Initializing GetMastersCommand");
@@ -45,11 +45,14 @@ public class GetMastersCommand implements ServletCommand {
         record = new RecordService(recordDAO);
         ParsePathProperties properties = ParsePathProperties.getInstance();
         page = properties.getProperty("recordItemPage");
+        pageRe = properties.getProperty("recordsPage");
+
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
+        if(request.getParameter("id") == null) return pageRe;
         long id = Integer.parseInt(request.getParameter("id"));
 
         List<ServiceMaster> list = serviceMaster.findMastersByService(id);

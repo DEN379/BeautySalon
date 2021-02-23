@@ -47,35 +47,40 @@ public class GetServicesCommand implements ServletCommand {
         recordDAO = RecordDAO.getInstance();
         record = new RecordService(recordDAO);
         ParsePathProperties properties = ParsePathProperties.getInstance();
-        page = properties.getProperty("usersItemPage");
+        page = properties.getProperty("usersPage");
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         LOGGER.info("Executing command");
 
-        long user_id = Integer.parseInt(request.getParameter("id"));
-        Master mas = master.findMasterByUserId(user_id);
+        List<Service> list = new ArrayList<>();
+        if(request.getParameter("id") != null) {
 
-        List<ServiceMaster> sm = serviceMaster.findServiceMasterByMasterId(mas.getId());
+            long user_id = Integer.parseInt(request.getParameter("id"));
+            Master mas = master.findMasterByUserId(user_id);
 
-        List<Service> list = service.findAll();
+            List<ServiceMaster> sm = new ArrayList<>();
+            if (mas != null && mas.getId() != null) {
+                sm = serviceMaster.findServiceMasterByMasterId(mas.getId());
+            }
+            list = service.findAll();
 
-        List<Service> result = new ArrayList<>();
-        for (ServiceMaster a : sm) {
-            LOGGER.info("servisMaster "+a.getService_id());
-            for (Service b : list) {
-                if (a.getService_id() == b.getId()) {
-                    LOGGER.info("equal service "+b.getId());
-                    result.add(b);
+            List<Service> result = new ArrayList<>();
+            for (ServiceMaster a : sm) {
+                LOGGER.info("servisMaster " + a.getService_id());
+                for (Service b : list) {
+                    if (a.getService_id() == b.getId()) {
+                        LOGGER.info("equal service " + b.getId());
+                        result.add(b);
+                    }
+
                 }
 
             }
 
+            list.removeAll(result);
+
         }
-
-        list.removeAll(result);
-
-
 
         LOGGER.info("after finding");
         PrintWriter out = response.getWriter();
@@ -86,8 +91,9 @@ public class GetServicesCommand implements ServletCommand {
         sb.append("<select name=\"service-id\" form=\"services\" required>\n" +
                 "    <option selected disabled>Select service</option>");
         for(Service ser : list){
-            sb.append("<option value=\"").append(ser.getId()).append("\">")
-                    .append(ser.getName()).append("</option>");
+            sb.append("<option value=\"").append(ser.getId()).append("\">").append(ser.getName())
+                    //.append(request.getParameter("locale").equals("en") ? ser.getName() : ser.getNameUkr())
+                    .append("</option>");
             LOGGER.info("append "+sb.toString());
         }
         sb.append("</select>");

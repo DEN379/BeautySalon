@@ -28,6 +28,11 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>/sources/*</url-pattern>
+  </servlet-mapping>
+
   <filter>
     <filter-name>EncodingFilter</filter-name>
     <filter-class>com.sakadel.salon.filter.EncodingFilter</filter-class>

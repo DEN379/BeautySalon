@@ -24,6 +24,7 @@ public class UserDAO {
     private static String findByEmailAndPasswordQuery;
     private static String findAllQuery;
     private static String updateUserToMaster;
+    private static String getCountUsers;
 
     private  UserDAO(){
 //        try {
@@ -44,6 +45,7 @@ public class UserDAO {
         findByEmailAndPasswordQuery = properties.getProperty("findUserByEmailAndPassword");
         findAllQuery = properties.getProperty("findAllUsers");
         updateUserToMaster = properties.getProperty("updateUserToMaster");
+        getCountUsers = properties.getProperty("getCountUsers");
     }
 
     public static UserDAO getInstance(){
@@ -179,6 +181,22 @@ public class UserDAO {
         }
 
         return user;
+    }
+
+    public int getCountUsers() {
+        LOGGER.info("Getting count users");
+
+        try(Connection connection = connectionPool.getConnection();
+            PreparedStatement statement = connection.prepareStatement(getCountUsers)) {
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                return result.getInt("count");
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+            return 0;
+        }
+        return 0;
     }
 
     private User getUser(ResultSet resultSet) {
