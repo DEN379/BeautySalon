@@ -47,7 +47,7 @@
                     <td>
                         <c:if test="${record.status_id == 1}">
                         <form action="${pageContext.request.contextPath}/myOrders/paid?id=${record.id}" method="post" >
-                            <input type="submit" value="<fmt:message key="pay" bundle="${bundle}"/>" class="btn btn-warn">
+                            <input type="submit" value="<fmt:message key="pay" bundle="${bundle}"/>" class="btn btn-warning">
                         </form>
                         </c:if>
 

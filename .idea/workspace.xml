@@ -7,18 +7,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="30d90eb8-5bb2-41f8-9b99-706e5f56f984" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/localization.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/localization_en.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/localization_ua.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/auth/LoginPageCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/client/UpdateStatusPaidCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/CommentPageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/CommentPageCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/CommandManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/CommandManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/CommentCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/client/CommentCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/CommentPageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/client/CommentPageCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/FilterMasterByServiceCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/FilterMasterByServiceCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/FilterServiceByMasterCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/FilterServiceByMasterCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/GetMastersCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/GetMastersCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/LoginCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/GetMastersCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/client/GetMastersCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/GetTimeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/client/GetTimeCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/auth/LoginCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/LoginPageCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/LogoutCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/auth/LogoutCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/MainPageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/MainPageCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/MyOrdersPageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/MyOrdersPageCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/UpdateStatusPaidCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/UpdateStatusPaidCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/MyOrdersPageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/client/MyOrdersPageCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/OrderCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/OrderCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/OrderPageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/OrderPageCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/RegisterCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/auth/RegisterCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/RegisterPageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/auth/RegisterPageCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/ServletCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/ServletCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/UpdateStatusPaidCommand.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/admin/AcceptedStatusCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/admin/AcceptedStatusCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/admin/CancelStatusCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/admin/CancelStatusCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/admin/CreateServiceCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/admin/CreateServiceCommand.java" afterDir="false" />
@@ -32,25 +41,38 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/admin/UsersItemPageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/admin/UsersItemPageCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/admin/UsersPageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/admin/UsersPageCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/master/OrderByNameCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/master/OrderByNameCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/master/TimeTablePageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/master/TimeTablePageCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/master/UpdateStatusCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/commands/master/UpdateStatusCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/dao/MasterDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/dao/MasterDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/dao/RecordDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/dao/RecordDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/dao/ServiceDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/dao/ServiceDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/dao/ServiceMasterDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/dao/ServiceMasterDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/entity/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/entity/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/entity/Master.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/model/Master.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/entity/MasterTime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/utility/MasterTime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/entity/Record.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/model/Record.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/model/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/entity/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/model/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/entity/ServiceMaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/model/ServiceMaster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/entity/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/model/Status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/entity/UserBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/model/UserBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/filter/AdminFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/filter/AdminFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/filter/ClientFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/filter/ClientFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/service/MasterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/service/MasterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/service/RecordService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/service/RecordService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/service/ServiceMasterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/service/ServiceMasterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/service/ServiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/service/ServiceService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sql.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/servlets/AjaxServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/servlets/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sakadel/salon/servlet/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/item.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/item.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/login.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/my-orders.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/my-orders.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/order-comment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/order-comment.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/order.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/order.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/records.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/records.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/register.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/service.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/service.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/navbar.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/navbar.tag" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/time-table.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/time-table.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/users-item.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/users-item.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/users.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/users.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/BeautySalon/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/BeautySalon/WEB-INF/web.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,12 +145,12 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Java\EpamJavaProject\BeautySalon\src\main\webapp\sources" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Java\EpamJavaProject\BeautySalon\src\main\webapp\sources" />
       <recent name="C:\Java\EpamJavaProject\BeautySalon\src\main\webapp\WEB-INF" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Java\EpamJavaProject\BeautySalon\src\main\webapp\sources" />
     </key>
   </component>
   <component name="RunManager">
@@ -293,7 +315,7 @@
               <path>
                 <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
                 <item name="Tomcat Server" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-                <item name="Running" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+                <item name="Finished" type="7427dc5b:ServiceModel$ServiceGroupNode" />
               </path>
             </expand>
             <select />
@@ -334,7 +356,8 @@
       <workItem from="1613559889372" duration="28212000" />
       <workItem from="1613644414276" duration="31949000" />
       <workItem from="1613726607147" duration="20067000" />
-      <workItem from="1613992196349" duration="27171000" />
+      <workItem from="1613992196349" duration="27384000" />
+      <workItem from="1614067774988" duration="13370000" />
     </task>
     <servers />
   </component>
@@ -362,54 +385,54 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="577" y="261" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1611837232609" />
-    <state width="1231" height="127" key="GridCell.Tab.0.bottom" timestamp="1614035064345">
+    <state width="1231" height="127" key="GridCell.Tab.0.bottom" timestamp="1614081779294">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1614035064345" />
-    <state width="1231" height="127" key="GridCell.Tab.0.center" timestamp="1614035064345">
+    <state width="1231" height="127" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1614081779294" />
+    <state width="1231" height="127" key="GridCell.Tab.0.center" timestamp="1614081779293">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1614035064345" />
-    <state width="1231" height="127" key="GridCell.Tab.0.left" timestamp="1614035064344">
+    <state width="1231" height="127" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1614081779293" />
+    <state width="1231" height="127" key="GridCell.Tab.0.left" timestamp="1614081779293">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1614035064344" />
-    <state width="1231" height="127" key="GridCell.Tab.0.right" timestamp="1614035064345">
+    <state width="1231" height="127" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1614081779293" />
+    <state width="1231" height="127" key="GridCell.Tab.0.right" timestamp="1614081779293">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1614035064345" />
-    <state width="1231" height="127" key="GridCell.Tab.1.bottom" timestamp="1614035064347">
+    <state width="1231" height="127" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1614081779293" />
+    <state width="1231" height="127" key="GridCell.Tab.1.bottom" timestamp="1614081779295">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1614035064347" />
-    <state width="1231" height="127" key="GridCell.Tab.1.center" timestamp="1614035064347">
+    <state width="1231" height="127" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1614081779295" />
+    <state width="1231" height="127" key="GridCell.Tab.1.center" timestamp="1614081779294">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1614035064347" />
-    <state width="1231" height="127" key="GridCell.Tab.1.left" timestamp="1614035064347">
+    <state width="1231" height="127" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1614081779294" />
+    <state width="1231" height="127" key="GridCell.Tab.1.left" timestamp="1614081779294">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1614035064347" />
-    <state width="1231" height="127" key="GridCell.Tab.1.right" timestamp="1614035064347">
+    <state width="1231" height="127" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1614081779294" />
+    <state width="1231" height="127" key="GridCell.Tab.1.right" timestamp="1614081779294">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1614035064347" />
-    <state width="1231" height="127" key="GridCell.Tab.2.bottom" timestamp="1614035064346">
+    <state width="1231" height="127" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1614081779294" />
+    <state width="1231" height="127" key="GridCell.Tab.2.bottom" timestamp="1614081779294">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1614035064346" />
-    <state width="1231" height="127" key="GridCell.Tab.2.center" timestamp="1614035064346">
+    <state width="1231" height="127" key="GridCell.Tab.2.bottom/0.0.1536.824@0.0.1536.824" timestamp="1614081779294" />
+    <state width="1231" height="127" key="GridCell.Tab.2.center" timestamp="1614081779294">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1614035064346" />
-    <state width="1231" height="127" key="GridCell.Tab.2.left" timestamp="1614035064345">
+    <state width="1231" height="127" key="GridCell.Tab.2.center/0.0.1536.824@0.0.1536.824" timestamp="1614081779294" />
+    <state width="1231" height="127" key="GridCell.Tab.2.left" timestamp="1614081779294">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1614035064345" />
-    <state width="1231" height="127" key="GridCell.Tab.2.right" timestamp="1614035064346">
+    <state width="1231" height="127" key="GridCell.Tab.2.left/0.0.1536.824@0.0.1536.824" timestamp="1614081779294" />
+    <state width="1231" height="127" key="GridCell.Tab.2.right" timestamp="1614081779294">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1231" height="127" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1614035064346" />
+    <state width="1231" height="127" key="GridCell.Tab.2.right/0.0.1536.824@0.0.1536.824" timestamp="1614081779294" />
     <state width="1231" height="475" key="GridCell.Tab.3.bottom" timestamp="1612817965167">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -462,10 +485,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="485" y="53" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1536.824@0.0.1536.824" timestamp="1611848321379" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1613992199074">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1614067777006">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1613992199074" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1614067777006" />
     <state x="463" y="17" width="609" height="789" key="find.popup" timestamp="1612965387732">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

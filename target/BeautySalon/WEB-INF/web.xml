@@ -33,6 +33,11 @@
     <url-pattern>/sources/*</url-pattern>
   </servlet-mapping>
 
+  <error-page>
+    <error-code>404</error-code>
+    <location>/404.jsp</location>
+  </error-page>
+
   <filter>
     <filter-name>EncodingFilter</filter-name>
     <filter-class>com.sakadel.salon.filter.EncodingFilter</filter-class>

@@ -1,8 +1,8 @@
 package com.sakadel.salon.service;
 
 import com.sakadel.salon.dao.UserDAO;
-import com.sakadel.salon.entity.Role;
-import com.sakadel.salon.entity.User;
+import com.sakadel.salon.model.Role;
+import com.sakadel.salon.model.User;
 import org.apache.log4j.Logger;
 
 import java.util.List;

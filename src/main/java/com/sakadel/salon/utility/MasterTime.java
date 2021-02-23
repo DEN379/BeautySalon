@@ -1,4 +1,6 @@
-package com.sakadel.salon.entity;
+package com.sakadel.salon.utility;
+
+import com.sakadel.salon.model.Record;
 
 import java.util.ArrayList;
 import java.util.Arrays;

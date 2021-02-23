@@ -6,8 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ClientFilter implements Filter {
+
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {}
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -15,9 +17,9 @@ public class ClientFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
 
-        if(req.getSession() == null || req.getSession().getAttribute("role") == null) {
+        if (req.getSession() == null || req.getSession().getAttribute("role") == null) {
             res.sendRedirect("/salon");
-        } else if(!req.getSession().getAttribute("role").equals("Client")){
+        } else if (!req.getSession().getAttribute("role").equals("Client")) {
             res.sendRedirect("/salon");
         }
 
@@ -25,5 +27,6 @@ public class ClientFilter implements Filter {
     }
 
     @Override
-    public void destroy() {}
+    public void destroy() {
+    }
 }

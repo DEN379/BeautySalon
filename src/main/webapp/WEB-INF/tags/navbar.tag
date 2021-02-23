@@ -36,7 +36,7 @@
     .auth a{
         margin-left: 20px;
     }
-    .admin-buttons a{
+    .admin-buttons a, .client-buttons a{
         margin-left: 20px;
     }
     .logo{
@@ -75,7 +75,7 @@
 
         </c:if>
         <c:if test="${sessionScope.authenticated != null && sessionScope.authenticated == true && sessionScope.role == 'Client'}">
-            <div>
+            <div class="client-buttons">
                 <a href="${pageContext.request.contextPath}/order" class="btn btn-primary">
                     <fmt:message key="order" bundle="${bundle}"/></a>
                 <a href="${pageContext.request.contextPath}/myOrders" class="btn btn-primary">

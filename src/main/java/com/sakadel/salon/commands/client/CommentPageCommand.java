@@ -1,8 +1,8 @@
-package com.sakadel.salon.commands;
+package com.sakadel.salon.commands.client;
 
-import com.sakadel.salon.commands.master.UpdateStatusCommand;
+import com.sakadel.salon.commands.ServletCommand;
 import com.sakadel.salon.dao.*;
-import com.sakadel.salon.entity.Status;
+import com.sakadel.salon.model.*;
 import com.sakadel.salon.service.*;
 import com.sakadel.salon.utility.ParsePathProperties;
 import org.apache.log4j.Logger;
@@ -11,9 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class UpdateStatusPaidCommand implements ServletCommand {
 
-    private static final Logger LOGGER = Logger.getLogger(UpdateStatusPaidCommand.class);
+/**
+ * Class that get comment page
+ *
+ * @author Denys Sakadel
+ * @version 1.0
+ */
+
+public class CommentPageCommand implements ServletCommand {
+
+    private static final Logger LOGGER = Logger.getLogger(CommentPageCommand.class);
     private ServiceService service;
     private ServiceDAO serviceDAO;
     private MasterService master;
@@ -26,10 +34,10 @@ public class UpdateStatusPaidCommand implements ServletCommand {
     private UserDAO userDAO;
 
     private static String page;
+    private static String pageRe;
 
-
-    public UpdateStatusPaidCommand(){
-        LOGGER.info("Initializing UpdateStatusPaidCommand");
+    public CommentPageCommand() {
+        LOGGER.info("Initializing CommentPageCommand");
 
         userDAO = UserDAO.getInstance();
         user = new UserService(userDAO);
@@ -41,16 +49,34 @@ public class UpdateStatusPaidCommand implements ServletCommand {
         serviceMaster = new ServiceMasterService(serviceMasterDAO);
         recordDAO = RecordDAO.getInstance();
         record = new RecordService(recordDAO);
+
         ParsePathProperties properties = ParsePathProperties.getInstance();
-        page = properties.getProperty("userRecordsPage");
+        page = properties.getProperty("orderCommentPage");
+        pageRe = properties.getProperty("userRecordsPage");
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        LOGGER.info("Executing command");
+        LOGGER.info("Executing CommentPageCommand");
 
-        if(request.getParameter("id") == null) return page;
+        if (request.getParameter("id") == null) return pageRe;
         long id = Integer.parseInt(request.getParameter("id"));
-        record.updateStatus(id, Status.PAID);
+        Record rec = record.findRecord(id);
+
+        User userName = user.findUserById(rec.getUser_id());
+        ServiceMaster sm = serviceMaster.findServiceMasterById(rec.getMaster_has_service_id());
+        long status_id = rec.getStatus_id() - 1;
+        Status status = Status.values()[(int) status_id];
+        Master mas = master.findMasterById(sm.getMaster_id());
+        Service ser = service.findServiceById(sm.getService_id());
+        User userMaster = user.findUserById(mas.getUser_id());
+        rec.setUser(userName);
+        rec.setUserMaster(userMaster);
+        rec.setService(ser);
+        rec.setServiceMaster(sm);
+        rec.setStatus(status);
+
+        request.setAttribute("record", rec);
+
         return page;
     }
 }

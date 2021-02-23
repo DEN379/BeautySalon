@@ -1,4 +1,4 @@
-package com.sakadel.salon.servlets;
+package com.sakadel.salon.servlet;
 
 import com.sakadel.salon.commands.CommandManager;
 import com.sakadel.salon.commands.ServletCommand;

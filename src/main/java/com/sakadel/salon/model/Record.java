@@ -1,6 +1,4 @@
-package com.sakadel.salon.entity;
-
-import java.sql.Time;
+package com.sakadel.salon.model;
 
 public class Record {
     private Long id;

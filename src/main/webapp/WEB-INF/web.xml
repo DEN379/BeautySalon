@@ -21,7 +21,7 @@
 
   <servlet>
     <servlet-name>BeautySalon</servlet-name>
-    <servlet-class>com.sakadel.salon.servlets.Main</servlet-class>
+    <servlet-class>com.sakadel.salon.servlet.Main</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>BeautySalon</servlet-name>
@@ -32,6 +32,11 @@
     <servlet-name>default</servlet-name>
     <url-pattern>/sources/*</url-pattern>
   </servlet-mapping>
+
+  <error-page>
+    <error-code>404</error-code>
+    <location>/404.jsp</location>
+  </error-page>
 
   <filter>
     <filter-name>EncodingFilter</filter-name>

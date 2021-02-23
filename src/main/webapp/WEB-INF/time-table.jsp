@@ -24,7 +24,7 @@
 </head>
 <body>
     <navbar:navbar/>
-    <div class="container">
+    <div class="container" style="margin-top: 20px">
         <form action="${pageContext.request.contextPath}/master/timeTable" method="get">
             <input type="date" name="date" id="calendar" required>
             <input type="submit">

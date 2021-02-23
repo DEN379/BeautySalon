@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Class that show creation-service page
+ *
+ * @author Denys Sakadel
+ * @version 1.0
+ */
+
 public class CreateServicePageCommand implements ServletCommand {
 
     private static final Logger LOGGER = Logger.getLogger(CreateServicePageCommand.class);
@@ -28,7 +35,7 @@ public class CreateServicePageCommand implements ServletCommand {
     private static String createServicePage;
 
 
-    public CreateServicePageCommand(){
+    public CreateServicePageCommand() {
         LOGGER.info("Initializing CreateServicePageCommand");
 
         userDAO = UserDAO.getInstance();
@@ -41,13 +48,14 @@ public class CreateServicePageCommand implements ServletCommand {
         serviceMaster = new ServiceMasterService(serviceMasterDAO);
         recordDAO = RecordDAO.getInstance();
         record = new RecordService(recordDAO);
+
         ParsePathProperties properties = ParsePathProperties.getInstance();
         page = properties.getProperty("mainPage");
         createServicePage = properties.getProperty("createServicePage");
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        LOGGER.info("Executing command");
+        LOGGER.info("Executing CreateServicePageCommand");
 
         String resultPage = createServicePage;
 //        if(request.getParameter("fname") == null && request.getParameter("lname") == null &&

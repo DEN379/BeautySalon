@@ -2,7 +2,6 @@ package com.sakadel.salon.commands;
 
 import com.sakadel.salon.dao.MasterDAO;
 import com.sakadel.salon.dao.ServiceDAO;
-import com.sakadel.salon.entity.Service;
 import com.sakadel.salon.service.MasterService;
 import com.sakadel.salon.service.ServiceService;
 import com.sakadel.salon.utility.ParsePathProperties;
@@ -10,9 +9,14 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
+
+
+/**
+ * Class that get main page
+ *
+ * @author Denys Sakadel
+ * @version 1.0
+ */
 
 public class MainPageCommand implements ServletCommand {
 
@@ -23,7 +27,7 @@ public class MainPageCommand implements ServletCommand {
     private MasterDAO masterDAO;
     private static String page;
 
-    public MainPageCommand(){
+    public MainPageCommand() {
         LOGGER.info("Initializing GetMainPageCommand");
 
         serviceDAO = ServiceDAO.getInstance();
@@ -35,12 +39,12 @@ public class MainPageCommand implements ServletCommand {
     }
 
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        LOGGER.info("Executing command");
+        LOGGER.info("Executing GetMainPageCommand");
 
         request.setAttribute("services", service.findAll());
         request.setAttribute("masters", master.findAllWithName());
 
-        if(request.getParameter("locale") != null) {
+        if (request.getParameter("locale") != null) {
             String locale = request.getParameter("locale");
             switch (locale) {
                 case "en":

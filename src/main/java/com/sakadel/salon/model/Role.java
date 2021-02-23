@@ -1,4 +1,4 @@
-package com.sakadel.salon.entity;
+package com.sakadel.salon.model;
 
 public enum Role {
     ADMIN("Admin"),

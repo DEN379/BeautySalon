@@ -1,7 +1,7 @@
 package com.sakadel.salon.service;
 
 import com.sakadel.salon.dao.ServiceDAO;
-import com.sakadel.salon.entity.Service;
+import com.sakadel.salon.model.Service;
 import org.apache.log4j.Logger;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.sakadel.salon.entity;
+package com.sakadel.salon.model;
 
 public class Service {
     private Long id;

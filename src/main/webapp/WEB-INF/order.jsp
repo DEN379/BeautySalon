@@ -27,29 +27,49 @@
         #order *{
             margin-top: 25px;
         }
+        .order-container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 50px;
+            border: lightcoral 4px solid;
+            margin-right: 20px;
+            background-color: bisque;
+            border-radius: 8px;
+            width: 30%;
+            padding: 20px;
+        }
+        .order-container *{
+            margin-top: 20px;
+        }
     </style>
     <navbar:navbar/>
-    <div class="container">
-        <form action="${pageContext.request.contextPath}/order" method="post" id="order">
-            <select onchange="selectChange(this);" name="service-id" form="order" required>
-                <option selected disabled><fmt:message key="selectService" bundle="${bundle}"/></option>
-                <c:forEach items="${services}" var="service">
-                    <option value="${service.id}"><c:out value="${service.name}" /></option>
-                </c:forEach>
-            </select>
+    <div class="container" style="display: flex;justify-content: center;">
+        <div class="order-container">
+            <h3><fmt:message key="order" bundle="${bundle}"/></h3>
+            <form action="${pageContext.request.contextPath}/order" method="post" id="order">
+                <select onchange="selectChange(this);" name="service-id" form="order" required>
+                    <option selected disabled><fmt:message key="selectService" bundle="${bundle}"/></option>
+                    <c:forEach items="${services}" var="service">
+                        <option value="${service.id}"><c:out value="${service.name}" /></option>
+                    </c:forEach>
+                </select>
 
-            <div id="masters"></div>
-            <input type="date" name="calendar" id="calendar" onchange="getDate(this);" required>
-            <div id="time"></div>
+                <div id="masters"></div>
+                <input type="date" name="calendar" id="calendar" onchange="getDate(this);" required>
+                <div id="time"></div>
 
-            <input type="submit" value="<fmt:message key="submitOrder" bundle="${bundle}"/>">
-        </form>
+                <input type="submit" value="<fmt:message key="submitOrder" bundle="${bundle}"/>">
+            </form>
+        </div>
     </div>
 
 
 
     <script defer>
-        document.getElementById('calendar').valueAsDate = new Date();
+        //document.getElementById('calendar').valueAsDate = new Date();
         function getDate(date) {
             console.log(date);
             var master = document.querySelector("#masters select[name=master-id]");

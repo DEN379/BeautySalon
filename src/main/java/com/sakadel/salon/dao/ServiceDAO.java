@@ -1,10 +1,7 @@
 package com.sakadel.salon.dao;
 
 import com.sakadel.salon.connection.ConnectionPool;
-import com.sakadel.salon.entity.Role;
-import com.sakadel.salon.entity.Service;
-import com.sakadel.salon.entity.User;
-import com.sakadel.salon.entity.UserBuilder;
+import com.sakadel.salon.model.Service;
 import com.sakadel.salon.utility.ParseSqlProperties;
 import org.apache.log4j.Logger;
 

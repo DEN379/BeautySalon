@@ -1,8 +1,8 @@
 package com.sakadel.salon.service;
 
 import com.sakadel.salon.dao.RecordDAO;
-import com.sakadel.salon.entity.Record;
-import com.sakadel.salon.entity.Status;
+import com.sakadel.salon.model.Record;
+import com.sakadel.salon.model.Status;
 import org.apache.log4j.Logger;
 
 import java.util.List;
