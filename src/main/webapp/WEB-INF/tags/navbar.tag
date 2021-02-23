@@ -4,7 +4,7 @@
 <%@attribute name="navbar" fragment="true" %>
 
 <c:if test="${sessionScope.locale == null}">
-    <fmt:setLocale value="ua"/>
+    <fmt:setLocale value="en"/>
 </c:if>
 <c:if test="${sessionScope.locale != null}">
     <fmt:setLocale value="${sessionScope.locale}"/>

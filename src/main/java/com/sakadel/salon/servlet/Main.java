@@ -29,9 +29,9 @@ public class Main extends HttpServlet {
 
         ServletCommand command = commandManager.getGetCommand(request);
         String page = command.execute(request, response);
-        if(page != null)
-            if(!response.isCommitted())
-        request.getRequestDispatcher(page).forward(request, response);
+        if (page != null)
+            if (!response.isCommitted())
+                request.getRequestDispatcher(page).forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -44,8 +44,8 @@ public class Main extends HttpServlet {
         response.sendRedirect(getUrl(page));
     }
 
-    private String getUrl(String page){
-        switch (page){
+    private String getUrl(String page) {
+        switch (page) {
 
             case "/WEB-INF/order.jsp":
             case "/WEB-INF/my-orders.jsp":
@@ -58,7 +58,8 @@ public class Main extends HttpServlet {
             case "/WEB-INF/index.jsp":
             case "/WEB-INF/login.jsp":
             case "/WEB-INF/register.jsp":
-            default: return "/salon";
+            default:
+                return "/salon";
         }
     }
 }

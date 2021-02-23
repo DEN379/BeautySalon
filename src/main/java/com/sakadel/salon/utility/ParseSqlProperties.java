@@ -6,6 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Class that parse properties with sql requests
+ *
+ * @author Denys Sakadel
+ * @version 1.0
+ */
+
 public class ParseSqlProperties {
     private static final Logger LOGGER = Logger.getLogger(ParseSqlProperties.class);
 
@@ -28,8 +35,7 @@ public class ParseSqlProperties {
                 LOGGER.error("Mysql queries property file not found on the classpath");
             }
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
         try {
@@ -41,7 +47,7 @@ public class ParseSqlProperties {
     }
 
     public static synchronized ParseSqlProperties getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ParseSqlProperties();
         }
 

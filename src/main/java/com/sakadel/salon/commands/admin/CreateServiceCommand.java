@@ -1,7 +1,7 @@
 package com.sakadel.salon.commands.admin;
 
 import com.sakadel.salon.commands.ServletCommand;
-import com.sakadel.salon.dao.ServiceDAO;
+import com.sakadel.salon.dao.Service.ServiceDAO;
 import com.sakadel.salon.model.Service;
 import com.sakadel.salon.service.ServiceService;
 import com.sakadel.salon.utility.ParsePathProperties;

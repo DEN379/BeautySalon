@@ -1,8 +1,8 @@
 package com.sakadel.salon.commands.client;
 
 import com.sakadel.salon.commands.ServletCommand;
-import com.sakadel.salon.dao.RecordDAO;
-import com.sakadel.salon.dao.ServiceMasterDAO;
+import com.sakadel.salon.dao.Record.RecordDAO;
+import com.sakadel.salon.dao.ServiceMaster.ServiceMasterDAO;
 import com.sakadel.salon.utility.MasterTime;
 import com.sakadel.salon.model.Record;
 import com.sakadel.salon.model.ServiceMaster;

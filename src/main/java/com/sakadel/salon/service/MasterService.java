@@ -1,6 +1,6 @@
 package com.sakadel.salon.service;
 
-import com.sakadel.salon.dao.MasterDAO;
+import com.sakadel.salon.dao.Master.MasterDAO;
 import com.sakadel.salon.model.Master;
 import org.apache.log4j.Logger;
 
@@ -16,14 +16,14 @@ public class MasterService {
         this.masterDAO = masterDAO;
     }
 
-    public boolean addMaster(Long id){
+    public boolean addMaster(Long id) {
         LOGGER.info("Add new service");
         return id != null && masterDAO.setMaster(id).getId() != null;
     }
 
-    public Master findMasterById(Long id){
+    public Master findMasterById(Long id) {
         LOGGER.info("Finding a master by id = " + id);
-        if(id == null) {
+        if (id == null) {
             return null;
         }
         return masterDAO.findMasterById(id);
@@ -34,29 +34,34 @@ public class MasterService {
 
         return masterDAO.findAllWithName();
     }
+
     public List<Master> findAllWithNameOrderBy(boolean isByRate, boolean isDescending) {
         LOGGER.info("Getting all masters with order");
 
         return masterDAO.findAllWithNameOrder(isByRate, isDescending);
     }
 
-    public Master findMasterWithNameById(Long id){
+    public Master findMasterWithNameById(Long id) {
         LOGGER.info("Finding master with name by id = " + id);
-        if(id == null) {
+        if (id == null) {
             return null;
         }
         return masterDAO.findMasterWithNameById(id);
     }
 
-    public Master findMasterByUserId(Long id){
+    public Master findMasterByUserId(Long id) {
         LOGGER.info("Finding master by user id = " + id);
-        if(id == null) {
+        if (id == null) {
             return null;
         }
         return masterDAO.findMasterByUserId(id);
     }
-    public boolean updateMasterRate(Long id, float rate){
+
+    public boolean updateMasterRate(Long id, float rate) {
         LOGGER.info("Updating master rate" + id);
+        if (id == null) {
+            return false;
+        }
         return masterDAO.updateMasterRate(id, rate);
     }
 }

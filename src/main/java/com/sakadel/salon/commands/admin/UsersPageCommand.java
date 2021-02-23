@@ -1,7 +1,7 @@
 package com.sakadel.salon.commands.admin;
 
 import com.sakadel.salon.commands.ServletCommand;
-import com.sakadel.salon.dao.UserDAO;
+import com.sakadel.salon.dao.User.UserDAO;
 import com.sakadel.salon.model.User;
 import com.sakadel.salon.service.UserService;
 import com.sakadel.salon.utility.ParsePathProperties;

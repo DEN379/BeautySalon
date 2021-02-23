@@ -6,9 +6,10 @@ public class Master {
     private Long user_id;
     private User user;
     private float mark;
-    public Master(){
 
+    public Master() {
     }
+
     public Master(Long id, User user, float mark) {
         this.id = id;
         this.user = user;

@@ -21,7 +21,7 @@
 
   <servlet>
     <servlet-name>BeautySalon</servlet-name>
-    <servlet-class>com.sakadel.salon.servlets.Main</servlet-class>
+    <servlet-class>com.sakadel.salon.servlet.Main</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>BeautySalon</servlet-name>

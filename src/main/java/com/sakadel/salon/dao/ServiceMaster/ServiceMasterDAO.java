@@ -1,4 +1,4 @@
-package com.sakadel.salon.dao;
+package com.sakadel.salon.dao.ServiceMaster;
 
 import com.sakadel.salon.connection.ConnectionPool;
 import com.sakadel.salon.model.ServiceMaster;
@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ServiceMasterDAO {
+public class ServiceMasterDAO implements IServiceMasterDAO {
     private static final Logger LOGGER = Logger.getLogger(ServiceMasterDAO.class);
     private static ServiceMasterDAO INSTANCE;
-    //private static Connection connection;
     private static ConnectionPool connectionPool;
 
 
@@ -24,13 +23,6 @@ public class ServiceMasterDAO {
     private static String findByMasterAndServiceIdQuery;
 
     private  ServiceMasterDAO() {
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            connection = DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
-//        } catch (SQLException | ClassNotFoundException e) {
-//            LOGGER.error("Can't connect to the Data Base", e);
-//        }
         connectionPool = ConnectionPool.getInstance();
 
         ParseSqlProperties properties = ParseSqlProperties.getInstance();
@@ -107,7 +99,6 @@ public class ServiceMasterDAO {
                 serviceMaster.setPrice(result.getBigDecimal("price"));
 
                 listMasters.add(serviceMaster);
-                LOGGER.info("VSE ZAPISALOS V SERMAS "+listMasters.size());
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

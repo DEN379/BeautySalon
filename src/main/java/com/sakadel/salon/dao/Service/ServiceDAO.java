@@ -1,4 +1,4 @@
-package com.sakadel.salon.dao;
+package com.sakadel.salon.dao.Service;
 
 import com.sakadel.salon.connection.ConnectionPool;
 import com.sakadel.salon.model.Service;
@@ -10,10 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ServiceDAO {
+public class ServiceDAO implements IServiceDAO {
     private static final Logger LOGGER = Logger.getLogger(ServiceDAO.class);
     private static ServiceDAO INSTANCE;
-    private static Connection connection;
     private static ConnectionPool connectionPool;
 
 
@@ -22,13 +21,6 @@ public class ServiceDAO {
     private static String findAllQuery;
 
     private  ServiceDAO() {
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            connection = DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
-//        } catch (SQLException | ClassNotFoundException e) {
-//            LOGGER.error("Can't connect to the Data Base", e);
-//        }
         connectionPool = ConnectionPool.getInstance();
 
         ParseSqlProperties properties = ParseSqlProperties.getInstance();

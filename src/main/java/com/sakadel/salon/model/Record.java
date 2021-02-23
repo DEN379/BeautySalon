@@ -6,7 +6,6 @@ public class Record {
     private Long master_has_service_id;
     private Long status_id;
     private String time;
-    //private Time time;
 
     private User user;
     private User userMaster;
@@ -61,14 +60,6 @@ public class Record {
     public void setStatus_id(Long status_id) {
         this.status_id = status_id;
     }
-
-//    public Time getTime() {
-//        return time;
-//    }
-//
-//    public void setTime(Time time) {
-//        this.time = time;
-//    }
 
     public User getUser() {
         return user;

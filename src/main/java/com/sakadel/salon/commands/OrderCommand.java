@@ -1,7 +1,7 @@
 package com.sakadel.salon.commands;
 
-import com.sakadel.salon.dao.RecordDAO;
-import com.sakadel.salon.dao.ServiceMasterDAO;
+import com.sakadel.salon.dao.Record.RecordDAO;
+import com.sakadel.salon.dao.ServiceMaster.ServiceMasterDAO;
 import com.sakadel.salon.model.Record;
 import com.sakadel.salon.model.ServiceMaster;
 import com.sakadel.salon.model.Status;

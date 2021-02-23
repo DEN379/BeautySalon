@@ -1,9 +1,9 @@
 package com.sakadel.salon.commands.client;
 
 import com.sakadel.salon.commands.ServletCommand;
-import com.sakadel.salon.dao.MasterDAO;
-import com.sakadel.salon.dao.RecordDAO;
-import com.sakadel.salon.dao.ServiceMasterDAO;
+import com.sakadel.salon.dao.Master.MasterDAO;
+import com.sakadel.salon.dao.Record.RecordDAO;
+import com.sakadel.salon.dao.ServiceMaster.ServiceMasterDAO;
 import com.sakadel.salon.model.ServiceMaster;
 import com.sakadel.salon.service.MasterService;
 import com.sakadel.salon.service.RecordService;
@@ -59,7 +59,7 @@ public class CommentCommand implements ServletCommand {
         long master_id = Integer.parseInt(request.getParameter("master"));
         int mark = Integer.parseInt(request.getParameter("mark"));
 
-        record.updateMark(id, mark);
+        if(!record.updateMark(id, mark)) return page;
 
         List<ServiceMaster> list = serviceMaster.findServiceMasterByMasterId(master_id);
 

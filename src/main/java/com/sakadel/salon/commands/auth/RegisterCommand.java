@@ -1,9 +1,9 @@
 package com.sakadel.salon.commands.auth;
 
 import com.sakadel.salon.commands.ServletCommand;
-import com.sakadel.salon.dao.MasterDAO;
-import com.sakadel.salon.dao.ServiceDAO;
-import com.sakadel.salon.dao.UserDAO;
+import com.sakadel.salon.dao.Master.MasterDAO;
+import com.sakadel.salon.dao.Service.ServiceDAO;
+import com.sakadel.salon.dao.User.UserDAO;
 import com.sakadel.salon.model.Role;
 import com.sakadel.salon.model.User;
 import com.sakadel.salon.model.UserBuilder;

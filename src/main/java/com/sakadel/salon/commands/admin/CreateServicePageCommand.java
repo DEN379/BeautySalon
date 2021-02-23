@@ -1,7 +1,11 @@
 package com.sakadel.salon.commands.admin;
 
 import com.sakadel.salon.commands.ServletCommand;
-import com.sakadel.salon.dao.*;
+import com.sakadel.salon.dao.Master.MasterDAO;
+import com.sakadel.salon.dao.Record.RecordDAO;
+import com.sakadel.salon.dao.Service.ServiceDAO;
+import com.sakadel.salon.dao.ServiceMaster.ServiceMasterDAO;
+import com.sakadel.salon.dao.User.UserDAO;
 import com.sakadel.salon.service.*;
 import com.sakadel.salon.utility.ParsePathProperties;
 import org.apache.log4j.Logger;

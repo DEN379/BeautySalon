@@ -1,4 +1,4 @@
-package com.sakadel.salon.dao;
+package com.sakadel.salon.dao.Master;
 
 import com.sakadel.salon.connection.ConnectionPool;
 import com.sakadel.salon.model.Master;
@@ -9,10 +9,9 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 import java.util.*;
 
-public class MasterDAO {
+public class MasterDAO implements IMasterDAO {
     private static final Logger LOGGER = Logger.getLogger(MasterDAO.class);
     private static MasterDAO INSTANCE;
-    //private static Connection connection;
     private static ConnectionPool connectionPool;
 
     private static String updateQuery;
@@ -23,13 +22,6 @@ public class MasterDAO {
     private static String updateRate;
 
     private  MasterDAO() {
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            connection = DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/beauty_salon?user=root&password=den379");
-//        } catch (SQLException | ClassNotFoundException e) {
-//            LOGGER.error("Can't connect to the Data Base", e);
-//        }
         connectionPool = ConnectionPool.getInstance();
 
         ParseSqlProperties properties = ParseSqlProperties.getInstance();
@@ -115,7 +107,6 @@ public class MasterDAO {
 
         sql += order;
         if(isDescending) sql += " DESC";
-
 
         try(Connection connection = connectionPool.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql)){
@@ -255,7 +246,7 @@ public class MasterDAO {
                 master = new Master();
                 master.setId(resultSet.getLong("id"));
                 master.setUser_id(resultSet.getLong("user_id"));
-                master.setMark(resultSet.getFloat("mark"));
+                master.setMark(resultSet.getFloat("rate"));
 
             }
         } catch (SQLException e) {

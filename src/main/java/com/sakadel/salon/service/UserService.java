@@ -1,6 +1,6 @@
 package com.sakadel.salon.service;
 
-import com.sakadel.salon.dao.UserDAO;
+import com.sakadel.salon.dao.User.UserDAO;
 import com.sakadel.salon.model.Role;
 import com.sakadel.salon.model.User;
 import org.apache.log4j.Logger;
@@ -20,16 +20,14 @@ public class UserService {
     }
 
     public List<User> findAllUsers(int offset, int limit) {
-        LOGGER.info("Find all users");
-
-        return userDao.findAllUsers(offset,limit);
-
+        LOGGER.info("Find all users with offset " + offset + " and limit " + limit);
+        return userDao.findAllUsers(offset, limit);
     }
 
     public boolean checkEmailAvailability(String email) {
-        LOGGER.info("Checking availability of email");
+        LOGGER.info("Checking availability of email => " + email);
 
-        if(email == null) {
+        if (email == null) {
             return false;
         }
 
@@ -39,15 +37,13 @@ public class UserService {
 
     public boolean registerUser(User user) {
         LOGGER.info("New user registration");
-
         return user != null && userDao.createUser(user).getId() != null;
-
     }
 
     public User getUserByCredentials(String email, String password) {
         LOGGER.info("Getting user by credentials");
 
-        if(email == null || password == null) {
+        if (email == null || password == null) {
             return null;
         }
 
@@ -57,7 +53,7 @@ public class UserService {
     public User findUserByEmail(String email) {
         LOGGER.info("Finding user by email " + email);
 
-        if(email == null) {
+        if (email == null) {
             return null;
         }
 
@@ -67,33 +63,22 @@ public class UserService {
     public User findUserById(Long id) {
         LOGGER.info("Finding user by id " + id);
 
-        if(id == null) {
+        if (id == null) {
             return null;
         }
 
         return userDao.findUserById(id);
     }
 
-    public boolean updateRole(Long id, Role role){
-        LOGGER.info("Updating role "+id+" to "+ role.value());
+    public boolean updateRole(Long id, Role role) {
+        LOGGER.info("Updating role " + id + " to " + role.value());
         return userDao.updateRole(id, role);
     }
 
-    public int getCountUsers(){
+    public int getCountUsers() {
         LOGGER.info("Getting count of users");
 
         return userDao.getCountUsers();
     }
-//    public Page<User> getPageByUserType(Integer page, Integer size, Role role) {
-//        LOGGER.info("Getting page number " + page + ", of size " + size + ", for user type " + role.name());
-//
-//        if(page == null || size == null || page < 1 || size < 1) {
-//            return null;
-//        }
-//
-//        List<User> items =  userDao.findPageByUserType(userType, (page - 1) * size, size);
-//        return new Page<>(items, page, size);
-//    }
-
 
 }

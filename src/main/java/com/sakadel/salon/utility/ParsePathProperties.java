@@ -6,6 +6,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Class that parse properties with file path
+ * @author Denys Sakadel
+ * @version 1.0
+ */
+
 public class ParsePathProperties {
     private static final Logger LOGGER = Logger.getLogger(ParsePathProperties.class);
 
@@ -28,8 +34,7 @@ public class ParsePathProperties {
                 LOGGER.error("Mapping properties file not found on the classpath");
             }
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             LOGGER.error(e.getMessage());
         }
         try {
@@ -41,7 +46,7 @@ public class ParsePathProperties {
     }
 
     public static synchronized ParsePathProperties getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new ParsePathProperties();
         }
 
